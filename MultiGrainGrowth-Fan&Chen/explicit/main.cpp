@@ -45,17 +45,32 @@ int main(){
     constexpr unsigned int Nsd = 2; //2 for 2D, 3 for 3D
     constexpr unsigned int BfOrder = 1; //1 for linear, 2 for quadratic
 
+    unsigned int quadOrder = 2; //quadrature order for numerical integration
+    
     //Problem parameters
     const double x_ll = 0.0; //lower left corner of the domain
-    const double x_ul = 1.0; //upper right corner of the domain
+    const double x_ul = 2.0; //upper right corner of the domain
     const unsigned int n_refinements = 9; //number of global refinements in the mesh grid
 
     unsigned int p = 36; //number of distinct grain orientations in the domain
 
-    FanChen<Nsd, BfOrder> fan_chen(
+    const unsigned int NT = 5; //number of time steps
+    const double dt = 0.25; //time step size
+
+    const double L = 1.0; //mobility
+    const double kappa = 2.0; //gradient energy coefficient
+    const double alpha = 1.0; //kinetic equation coefficient alpha
+    const double beta = 1.0; //kinetic equation coefficient beta
+    const double gamma = 1.0; //kinetic equation coefficient gamma
+
+    FanChen<Nsd, BfOrder> problem(
         x_ll, x_ul, n_refinements, //for creating mesh grid
-        p //number of distinct grain orientations in the domain
+        p, //number of distinct grain orientations in the domain
+        dt, NT, //time step size, number of time steps
+        L, kappa, //mobility, gradient energy coefficient //both assumed constant here
+        alpha, beta, gamma, //kinetic equation coefficients
+        quadOrder //quadrature order for numerical integration
     );
 
-    fan_chen.run();
+    problem.run();
 }

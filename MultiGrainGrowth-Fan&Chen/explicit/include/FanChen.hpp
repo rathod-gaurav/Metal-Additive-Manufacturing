@@ -5,7 +5,11 @@ class FanChen{
     public:
         FanChen(
             const double x_ll, const double x_ul, const unsigned int n_refinements, //for creating mesh grid
-            const unsigned int p //number of distinct grain orientations in the domain
+            const unsigned int p, //number of distinct grain orientations in the domain
+            const double dt, const unsigned int NT, //time step size, number of time steps
+            const double L, const double kappa, //mobility, gradient energy coefficient //both assumed constant here
+            const double alpha, const double beta, const double gamma, //kinetic equation
+            const unsigned int quadOrder //quadrature order for numerical integration
         );
         void run();
     
@@ -13,14 +17,19 @@ class FanChen{
         const double x_ll_, x_ul_;
         const unsigned int n_refinements_;
         const unsigned int p_;
+        const double dt_;
+        const unsigned int NT_;
+        const double L_, kappa_;
+        const double alpha_, beta_, gamma_;
+        const unsigned int quadOrder_;
 
         void make_grid();
         void setup_system();
-        // void compute_element();
-        // void compute_element_F();
-        // void assemble_system();
-        // void assemble_system_F();
-        // void solve();
+        void compute_element(const typename DoFHandler<Nsd>::active_cell_iterator& elem, FEValues<Nsd>& fe_values, FullMatrix<double>& Mlocal, FullMatrix<double>& Klocal, std::vector<types::global_dof_index>& local_dof_indices);
+        void compute_element_F(const typename DoFHandler<Nsd>::active_cell_iterator& elem, FEValues<Nsd>& fe_values, Vector<double>& Flocal, std::vector<types::global_dof_index>& local_dof_indices);
+        void assemble_system();
+        void assemble_system_F();
+        void solve();
 
         Triangulation<Nsd> triangulation;
         const FE_Q<Nsd> fe;
@@ -38,3 +47,4 @@ class FanChen{
 
 #include <MakeGrid.tpp>
 #include <SetupSystem.tpp>
+#include <Solver.tpp>

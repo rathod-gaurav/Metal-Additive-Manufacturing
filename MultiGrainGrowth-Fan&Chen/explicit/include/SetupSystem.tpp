@@ -26,6 +26,15 @@ void FanChen<Nsd,BfOrder>::setup_system(){
     //initial conditions
     // code to fill eta_n here
     const std::map<types::global_dof_index, Point<Nsd>> dof_locations_map = DoFTools::map_dofs_to_support_points(MappingQ1<Nsd>(), dof_handler);
+    
+    std::default_random_engine gen(123);
+    std::uniform_real_distribution<double> dist(-0.001, 0.001);
+    for(unsigned int i = 0 ; i < p_ ; i++){
+        double *const row = &eta_n[i][0];
+        for(unsigned int j = 0 ; j < Nt ; j++){
+            row[j] = dist(gen);
+        }
+    }
 
     std::cout << "System setup successful. All global system matrices and vectors initialized" << std::endl;
 }

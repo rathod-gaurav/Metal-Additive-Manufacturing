@@ -19,6 +19,8 @@ void FanChen<Nsd,BfOrder>::solve(){
     // SparseDirectUMFPACK directsolver;
     // directsolver.initialize(Mglobal);
 
+    post_process(); //to store the initial conditions in result file
+
     double t = dt_;
     for(unsigned int timestep = 1 ; timestep < NT_ ; timestep++){
         //Assemble eta_n2
@@ -56,16 +58,16 @@ void FanChen<Nsd,BfOrder>::solve(){
         }
         std::cout << "Solve completed for timestep " << timestep << std::endl;
         std::cout << "-----------------------------" << std::endl;
-        
+        std::swap(eta_n, eta_np1, timestep);
+
         post_process();
         output_writer_.write_vtu(dof_handler, phi, timestep);
-
-        std::swap(eta_n, eta_np1);
+        
         t += dt_;
 
     }
 
-    std::cout << "Solve completed." << std::endl;
+    std::cout << "Solve completed. Congratulations!!" << std::endl;
 
     output_writer_.write_pvd();
 }

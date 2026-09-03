@@ -21,7 +21,7 @@ void OutputWriter<Nsd,BfOrder>::write_vtu(DoFHandler<Nsd>& dof_handler, Vector<d
 }
 
 template <unsigned int Nsd, unsigned int BfOrder>
-void OutputWriter<Nsd,BfOrder>::write_pvd(){
+void OutputWriter<Nsd,BfOrder>::write_pvd(const unsigned int timestep){
     std::string pvd_filename = "final_output.pvd";
     std::ofstream pvd_output("final_solution.pvd");
 
@@ -40,19 +40,19 @@ void OutputWriter<Nsd,BfOrder>::write_pvd(){
             }
         }
     }
-    std::sort(vtu_files.begin(), vtu_files.end());
+    // std::sort(vtu_files.begin(), vtu_files.end());
 
     // Loop through each discovered file and append it to the PVD collection
-    double timestep = 0.0; // Adjust or extract from filename if you encode time in the name
-    for (const auto& file_path : vtu_files) {
-        std::string filename = file_path.filename().string();
+    unsigned int timestep = 0;
+    for (size_t i = 0; i < vtu_files.size(); ++i) {
+        std::string filename = vtu_files[i].filename().string();
         pvd_output << "    <DataSet timestep=\"" << timestep << "\" group=\"\" part=\"0\" file=\"" << filename << "\"/>\n";
-        timestep += 1.0; // Increment or compute based on your time-stepping scheme
+        timestep += 1; 
     }
 
     pvd_output << "  </Collection>\n" << "</VTKFile>\n";
     pvd_output.close();
 
-    std::cout << "Output file written to " << pvd_output << std::endl;
+    std::cout << "Output file written to " << pvd_filename << "." << std::endl;
 }
 

@@ -1,5 +1,11 @@
 #pragma once
 
+#include <filesystem>
+#include <vector>
+#include <algorithm>
+
+namespace fs = std::filesystem;
+
 template <unsigned int Nsd, unsigned int BfOrder>
 class OutputWriter{
     public:

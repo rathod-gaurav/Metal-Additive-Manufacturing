@@ -9,7 +9,7 @@ void FanChen<Nsd,BfOrder>::compute_element_F(const typename DoFHandler<Nsd>::act
         double etaA_2 = 0.0;
         for(const unsigned int i : fe_values.dof_indices()){
             etaA += fe_values.shape_value(i,q_index)*eta_ni(local_dof_indices[i]);
-            eta_A2 += fe_values.shape_value(i,q_index)*eta_n2(local_dof_indices[i]);
+            etaA_2 += fe_values.shape_value(i,q_index)*eta_n2(local_dof_indices[i]);
         }
 
         for(const unsigned int i : fe_values.dof_indices()){

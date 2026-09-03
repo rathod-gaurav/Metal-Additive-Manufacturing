@@ -21,7 +21,7 @@ void OutputWriter<Nsd,BfOrder>::write_vtu(DoFHandler<Nsd>& dof_handler, Vector<d
 }
 
 template <unsigned int Nsd, unsigned int BfOrder>
-void OutputWriter<Nsd,BfOrder>::write_pvd(const unsigned int timestep){
+void OutputWriter<Nsd,BfOrder>::write_pvd(){
     std::string pvd_filename = "final_output.pvd";
     std::ofstream pvd_output("final_solution.pvd");
 

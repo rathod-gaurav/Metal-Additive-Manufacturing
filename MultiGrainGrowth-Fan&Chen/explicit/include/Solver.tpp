@@ -55,9 +55,17 @@ void FanChen<Nsd,BfOrder>::solve(){
         }
         std::cout << "Solve completed for timestep " << timestep << std::endl;
         std::cout << "-----------------------------" << std::endl;
+        
+        postprocess();
+        output_writer_.write_vtu(dof_handler, phi, timestep);
+
         std::swap(eta_n, eta_np1);
         t += dt_;
+
+        
     }
 
     std::cout << "Solve completed." << std::endl;
+
+    output_writer_.write_pvd();
 }

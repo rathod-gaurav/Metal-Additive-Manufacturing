@@ -63,13 +63,15 @@ int main(){
     const double beta = 1.0; //kinetic equation coefficient beta
     const double gamma = 1.0; //kinetic equation coefficient gamma
 
+    OutputWriter<Nsd,BfOrder> output_writer("output");
     FanChen<Nsd, BfOrder> problem(
         x_ll, x_ul, n_refinements, //for creating mesh grid
         p, //number of distinct grain orientations in the domain
         dt, NT, //time step size, number of time steps
         L, kappa, //mobility, gradient energy coefficient //both assumed constant here
         alpha, beta, gamma, //kinetic equation coefficients
-        quadOrder //quadrature order for numerical integration
+        quadOrder, //quadrature order for numerical integration
+        output_writer //output writer object
     );
 
     problem.run();

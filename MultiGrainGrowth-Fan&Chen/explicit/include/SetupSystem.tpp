@@ -23,6 +23,8 @@ void FanChen<Nsd,BfOrder>::setup_system(){
     eta_n.reinit(p_, Nt, true);
     eta_np1.reinit(p_, Nt, true);
 
+    phi.reinit(Nt);
+
     //initial conditions
     // code to fill eta_n here
     const std::map<types::global_dof_index, Point<Nsd>> dof_locations_map = DoFTools::map_dofs_to_support_points(MappingQ1<Nsd>(), dof_handler);

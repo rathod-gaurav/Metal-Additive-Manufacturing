@@ -7,7 +7,8 @@ FanChen<Nsd,BfOrder>::FanChen(
     const double dt, const unsigned int NT, //time step size, number of time steps
     const double L, const double kappa, //mobility, gradient energy coefficient //both assumed constant here
     const double alpha, const double beta, const double gamma, //kinetic equation coefficients
-    const unsigned int quadOrder
+    const unsigned int quadOrder, //quadrature order for numerical integration
+    OutputWriter<Nsd,BfOrder>& output_writer //output writer object
 ):
     x_ll_(x_ll),
     x_ul_(x_ul),
@@ -21,6 +22,7 @@ FanChen<Nsd,BfOrder>::FanChen(
     beta_(beta),
     gamma_(gamma),
     quadOrder_(quadOrder),
+    output_writer_(output_writer),
     fe(BfOrder),
     dof_handler(triangulation)
 {}

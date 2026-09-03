@@ -1,5 +1,7 @@
 #pragma once
 
+#include "OutputWriter.hpp"
+
 template<unsigned int Nsd, unsigned int BfOrder>
 class FanChen{
     public:
@@ -9,7 +11,8 @@ class FanChen{
             const double dt, const unsigned int NT, //time step size, number of time steps
             const double L, const double kappa, //mobility, gradient energy coefficient //both assumed constant here
             const double alpha, const double beta, const double gamma, //kinetic equation
-            const unsigned int quadOrder //quadrature order for numerical integration
+            const unsigned int quadOrder, //quadrature order for numerical integration
+            OutputWriter<Nsd,BfOrder>& output_writer //pointer to output writer object
         );
         void run();
     
@@ -22,6 +25,7 @@ class FanChen{
         const double L_, kappa_;
         const double alpha_, beta_, gamma_;
         const unsigned int quadOrder_;
+        OutputWriter<Nsd,BfOrder>& output_writer_;
 
         void make_grid();
         void setup_system();
@@ -30,6 +34,7 @@ class FanChen{
         void assemble_system();
         void assemble_system_F();
         void solve();
+        void post_process();
 
         Triangulation<Nsd> triangulation;
         const FE_Q<Nsd> fe;
@@ -41,6 +46,7 @@ class FanChen{
         Vector<double> Fglobal;
         Table<2, double> eta_n, eta_np1;
         Vector<double> eta_ni, eta_np1i, eta_n2, RHS;
+        Vector<double> phi;
 };
 
 #include <FanChen.tpp>

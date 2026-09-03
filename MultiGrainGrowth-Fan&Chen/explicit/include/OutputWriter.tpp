@@ -45,7 +45,7 @@ void OutputWriter<Nsd,BfOrder>::write_pvd(){
     // Loop through each discovered file and append it to the PVD collection
     unsigned int timestep = 0;
     for (size_t i = 0; i < vtu_files.size(); ++i) {
-        std::string filename = vtu_files[i].filename().string();
+        std::string filename = output_dir_ + "/" + vtu_files[i].filename().string();
         pvd_output << "    <DataSet timestep=\"" << timestep << "\" group=\"\" part=\"0\" file=\"" << filename << "\"/>\n";
         timestep += 1; 
     }

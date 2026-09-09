@@ -2,13 +2,9 @@
 
 template<unsigned int Nsd, unsigned int BfOrder>
 void FanChen<Nsd,BfOrder>::setup_system(){
-    dof_handler.distribute_dofs(fe);
-    Nt = dof_handler.n_dofs();
-
-    std::cout << "Number of degrees of freedom: " << Nt << std::endl;
 
     DynamicSparsityPattern dsp(Nt);
-    DoFTools::make_sparsity_pattern(dof_handler, dsp);
+    DoFTools::make_sparsity_pattern(dof_handler, dsp, constraints, false); //false means don't keep constrained DoFs in the sparsity pattern
     sparsity_pattern.copy_from(dsp);
 
     Mglobal.reinit(sparsity_pattern);

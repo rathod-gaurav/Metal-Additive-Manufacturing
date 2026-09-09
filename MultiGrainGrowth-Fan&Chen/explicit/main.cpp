@@ -15,6 +15,9 @@
 #include <deal.II/numerics/vector_tools.h>
 #include <deal.II/numerics/matrix_tools.h>
 
+//for periodic boundary conditions
+#include <deal.II/grid/grid_tools.h>
+
 //linear algebra
 #include <deal.II/lac/vector.h>
 #include <deal.II/lac/full_matrix.h>
@@ -52,10 +55,10 @@ int main(){
     const double x_ul = 2.0; //upper right corner of the domain
     const unsigned int n_refinements = 9; //number of global refinements in the mesh grid
 
-    unsigned int p = 36; //number of distinct grain orientations in the domain
+    unsigned int p = 2; //number of distinct grain orientations in the domain
 
-    const unsigned int NT = 5; //number of time steps
-    const double dt = 0.25; //time step size
+    const unsigned int NT = 5000; //number of time steps
+    const double dt = 5*1e-7; //time step size
 
     const double L = 1.0; //mobility
     const double kappa = 2.0; //gradient energy coefficient

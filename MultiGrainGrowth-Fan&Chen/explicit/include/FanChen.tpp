@@ -30,6 +30,14 @@ FanChen<Nsd,BfOrder>::FanChen(
 template<unsigned int Nsd, unsigned int BfOrder>
 void FanChen<Nsd,BfOrder>::run(){
     make_grid();
+
+    dof_handler.distribute_dofs(fe);
+    Nt = dof_handler.n_dofs();
+
+    std::cout << "Number of degrees of freedom: " << Nt << std::endl;
+
+    apply_bc();
+
     setup_system();
     solve();
 }

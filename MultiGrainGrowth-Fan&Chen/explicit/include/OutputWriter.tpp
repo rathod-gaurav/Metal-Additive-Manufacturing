@@ -40,7 +40,7 @@ void OutputWriter<Nsd,BfOrder>::write_pvd(){
             }
         }
     }
-    // std::sort(vtu_files.begin(), vtu_files.end());
+    std::sort(vtu_files.begin(), vtu_files.end());
 
     // Loop through each discovered file and append it to the PVD collection
     unsigned int timestep = 0;

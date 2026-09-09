@@ -29,6 +29,7 @@ class FanChen{
 
         void make_grid();
         void setup_system();
+        void apply_bc();
         void compute_element(const typename DoFHandler<Nsd>::active_cell_iterator& elem, FEValues<Nsd>& fe_values, FullMatrix<double>& Mlocal, FullMatrix<double>& Klocal, std::vector<types::global_dof_index>& local_dof_indices);
         void compute_element_F(const typename DoFHandler<Nsd>::active_cell_iterator& elem, FEValues<Nsd>& fe_values, Vector<double>& Flocal, std::vector<types::global_dof_index>& local_dof_indices);
         void assemble_system();
@@ -39,6 +40,7 @@ class FanChen{
         Triangulation<Nsd> triangulation;
         const FE_Q<Nsd> fe;
         DoFHandler<Nsd> dof_handler;
+        AffineConstraints<double> constraints; //constraints object to handle periodic boundary conditions and hanging nodes
         unsigned int Nt; //total number of degrees of freedom
 
         SparsityPattern sparsity_pattern;
@@ -53,4 +55,5 @@ class FanChen{
 
 #include <MakeGrid.tpp>
 #include <SetupSystem.tpp>
+#include <ApplyBC.tpp>
 #include <Solver.tpp>

@@ -20,6 +20,7 @@ void FanChen<Nsd,BfOrder>::solve(){
     // directsolver.initialize(Mglobal);
 
     post_process(); //to store the initial conditions in result file
+    output_writer_.write_vtu(dof_handler, phi, 0);
 
     double t = dt_;
     for(unsigned int timestep = 1 ; timestep < NT_ ; timestep++){
@@ -38,6 +39,8 @@ void FanChen<Nsd,BfOrder>::solve(){
             Fglobal = 0.0;
             assemble_system_F();
 
+            constraints.distribute(eta_ni);
+
             //RHS = (Mglobal - dt_*L_*kappa_*Kglobal)*eta_ni - dt_*L_*Mglobal*Fglobal;
             Kglobal.vmult(RHS, eta_ni);
             RHS *= -1*dt_*L_*kappa_;
@@ -48,11 +51,13 @@ void FanChen<Nsd,BfOrder>::solve(){
             // directsolver.vmult(eta_np1i, RHS);
 
             eta_np1i = eta_ni;
-            SolverControl control(200, 1e-10 * RHS.l2_norm());
+            SolverControl control(1000, 1e-10 * RHS.l2_norm());
             SolverCG<Vector<double>> cgsolver(control);
             cgsolver.solve(Mglobal, eta_np1i, RHS, prec);
 
-            // std::cout << control.last_step() << std::endl;
+            constraints.distribute(eta_np1i);
+
+            std::cout << "Timestep: " << timestep << " | Solve: " << i << " | Iterations: " << control.last_step() << " | Residual: " << control.last_value() << std::endl;
 
             std::copy(eta_np1i.begin(), eta_np1i.end(), &eta_np1[i][0]);
         }

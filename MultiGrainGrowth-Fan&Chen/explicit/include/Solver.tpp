@@ -66,7 +66,9 @@ void FanChen<Nsd,BfOrder>::solve(){
         std::swap(eta_n, eta_np1);
 
         post_process();
-        output_writer_.write_vtu(dof_handler, phi, timestep);
+        if(timestep%10 == 0){
+            output_writer_.write_vtu(dof_handler, phi, timestep);
+        }
         
         t += dt_;
 

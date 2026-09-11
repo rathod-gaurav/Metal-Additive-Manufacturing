@@ -52,13 +52,13 @@ int main(){
     
     //Problem parameters
     const double x_ll = 0.0; //lower left corner of the domain
-    const double x_ul = 256.0; //upper right corner of the domain
+    const double x_ul = 384.0; //upper right corner of the domain
     const unsigned int n_refinements = 9; //number of global refinements in the mesh grid
 
-    unsigned int p = 2; //number of distinct grain orientations in the domain
+    unsigned int p = 16; //number of distinct grain orientations in the domain
 
     const unsigned int NT = 20000; //number of time steps
-    const double dt = 2*1e-2; //time step size
+    const double dt = 1e-2; //time step size
 
     const double L = 1.0; //mobility
     const double kappa = 2.0; //gradient energy coefficient
@@ -76,6 +76,7 @@ int main(){
         quadOrder, //quadrature order for numerical integration
         output_writer //output writer object
     );
+
 
     problem.run();
 }

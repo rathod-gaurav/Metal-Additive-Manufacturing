@@ -57,7 +57,13 @@ void FanChen<Nsd,BfOrder>::solve(){
 
             constraints.distribute(eta_np1i);
 
-            std::cout << "Timestep: " << timestep << " | Solve: " << i << " | Iterations: " << control.last_step() << " | Residual: " << control.last_value() << std::endl;
+            //debug
+            double max_eta = 0.0;
+            for(unsigned int i = 0 ; i < p_ ; i++){
+                max_eta = std::max(max_eta, eta_np1i.linfty_norm());
+            }
+
+            std::cout << "Timestep: " << timestep << " | Solve: " << i << " | Iterations: " << control.last_step() << " | Residual: " << control.last_value() << " | Max Eta: " << max_eta << std::endl;
 
             std::copy(eta_np1i.begin(), eta_np1i.end(), &eta_np1[i][0]);
         }

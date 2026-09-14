@@ -13,6 +13,7 @@ void FanChen<Nsd,BfOrder>::assemble_system_F(){
     std::vector<types::global_dof_index> local_dof_indices(dofs_per_cell);
 
     Vector<double> Flocal(dofs_per_cell);
+    std::cout << "size of Flocal: " << Flocal.size() << std::endl;
 
     for(const typename DoFHandler<Nsd>::active_cell_iterator &elem : dof_handler.active_cell_iterators()){
         Flocal = 0.0;

@@ -55,9 +55,9 @@ int main(){
     const double x_ul = 384.0; //upper right corner of the domain
     const unsigned int n_refinements = 9; //number of global refinements in the mesh grid
 
-    unsigned int p = 16; //number of distinct grain orientations in the domain
+    unsigned int p = 1; //number of distinct grain orientations in the domain
 
-    const unsigned int NT = 20000; //number of time steps
+    const unsigned int NT = 2; //number of time steps
     const double dt = 1e-2; //time step size
 
     const double L = 1.0; //mobility

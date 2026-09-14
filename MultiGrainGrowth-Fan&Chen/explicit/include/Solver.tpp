@@ -49,7 +49,8 @@ void FanChen<Nsd,BfOrder>::solve(){
             RHS *= -1*dt_*L_*kappa_;
             Mglobal.vmult_add(RHS, eta_ni);
             Fglobal *= -1*dt_*L_;
-            Mglobal.vmult_add(RHS, Fglobal);
+            // Mglobal.vmult_add(RHS, Fglobal);
+            RHS += Fglobal;
 
             // directsolver.vmult(eta_np1i, RHS);
 

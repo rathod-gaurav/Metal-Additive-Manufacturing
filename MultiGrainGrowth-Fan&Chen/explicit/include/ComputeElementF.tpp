@@ -13,7 +13,7 @@ void FanChen<Nsd,BfOrder>::compute_element_F(const typename DoFHandler<Nsd>::act
         }
 
         for(const unsigned int i : fe_values.dof_indices()){
-            std::cout << "i : " << i << std::endl;
+            // std::cout << "i : " << i << std::endl;
             Flocal(i) += (-1*alpha_*etaA + beta_*pow(etaA,3) + 2*gamma_*etaA*(etaA_2 - etaA*etaA))*fe_values.shape_value(i,q_index)*fe_values.JxW(q_index);
         }
     }

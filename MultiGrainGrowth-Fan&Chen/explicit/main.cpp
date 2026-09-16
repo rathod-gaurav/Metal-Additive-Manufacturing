@@ -48,7 +48,7 @@ int main(){
     constexpr unsigned int Nsd = 2; //2 for 2D, 3 for 3D
     constexpr unsigned int BfOrder = 1; //1 for linear, 2 for quadratic
 
-    unsigned int quadOrder = 2; //quadrature order for numerical integration
+    unsigned int quadOrder = 3; //quadrature order for numerical integration
     
     //Problem parameters
     const double x_ll = 0.0; //lower left corner of the domain
@@ -57,7 +57,7 @@ int main(){
 
     unsigned int p = 1; //number of distinct grain orientations in the domain
 
-    const unsigned int NT = 2; //number of time steps
+    const unsigned int NT = 2000; //number of time steps
     const double dt = 1e-2; //time step size
 
     const double L = 1.0; //mobility

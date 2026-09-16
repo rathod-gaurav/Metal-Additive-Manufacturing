@@ -25,9 +25,9 @@ void FanChen<Nsd,BfOrder>::solve(){
     double t = dt_;
     for(unsigned int timestep = 1 ; timestep < NT_ ; timestep++){
         //Assemble eta_n2
-        for (unsigned int k = 0; k < p_; ++k){
+        for (unsigned int k = 0; k < p_; k++){
             const double *const row = &eta_n[k][0];
-            for (unsigned int j = 0; j < Nt; ++j){
+            for (unsigned int j = 0; j < Nt; j++){
                 eta_n2(j) += row[j] * row[j];
             }
         }
@@ -40,11 +40,11 @@ void FanChen<Nsd,BfOrder>::solve(){
             std::copy(&eta_n[i][0], &eta_n[i][0] + Nt, eta_ni.begin());
 
             Fglobal = 0.0;
-            assemble_system_F();
+            // assemble_system_F();
 
             // constraints.distribute(eta_ni);
 
-            //RHS = (Mglobal - dt_*L_*kappa_*Kglobal)*eta_ni - dt_*L_*Mglobal*Fglobal;
+            //RHS = (Mglobal - dt_*L_*kappa_*Kglobal)*eta_ni - dt_*L_*Fglobal;
             Kglobal.vmult(RHS, eta_ni);
             RHS *= -1*dt_*L_*kappa_;
             Mglobal.vmult_add(RHS, eta_ni);
@@ -59,7 +59,7 @@ void FanChen<Nsd,BfOrder>::solve(){
             SolverCG<Vector<double>> cgsolver(control);
             cgsolver.solve(Mglobal, eta_np1i, RHS, prec);
 
-            constraints.distribute(eta_np1i);
+            // constraints.distribute(eta_np1i);
 
             //debug
             for(unsigned int i = 0 ; i < p_ ; i++){
@@ -75,9 +75,9 @@ void FanChen<Nsd,BfOrder>::solve(){
         std::swap(eta_n, eta_np1);
 
         post_process();
-        if(timestep%10 == 0){
+        // if(timestep%10 == 0){
             output_writer_.write_vtu(dof_handler, phi, timestep);
-        }
+        // }
         
         t += dt_;
 

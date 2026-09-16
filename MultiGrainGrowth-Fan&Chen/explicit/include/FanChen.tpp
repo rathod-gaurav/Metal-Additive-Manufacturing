@@ -36,7 +36,7 @@ void FanChen<Nsd,BfOrder>::run(){
 
     std::cout << "Number of degrees of freedom: " << Nt << std::endl;
 
-    apply_bc();
+    // apply_bc();
 
     setup_system();
     solve();

@@ -42,6 +42,7 @@ class FanChen{
         DoFHandler<Nsd> dof_handler;
         AffineConstraints<double> constraints; //constraints object to handle periodic boundary conditions and hanging nodes
         unsigned int Nt; //total number of degrees of freedom
+        std::map<types::global_dof_index, Point<Nsd>> dof_locations_map;
 
         SparsityPattern sparsity_pattern;
         SparseMatrix<double> Mglobal, Kglobal;
@@ -49,6 +50,7 @@ class FanChen{
         Table<2, double> eta_n, eta_np1;
         Vector<double> eta_ni, eta_np1i, eta_n2, RHS;
         Vector<double> phi;
+        
 };
 
 #include <FanChen.tpp>

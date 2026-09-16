@@ -22,14 +22,14 @@ void FanChen<Nsd,BfOrder>::assemble_system(){
         elem->get_dof_indices(local_dof_indices);
         compute_element(elem, fe_values, Mlocal, Klocal, local_dof_indices);
 
-        // for(const unsigned int i : fe_values.dof_indices()){
-        //     for(const unsigned int j : fe_values.dof_indices()){
-        //         Mglobal.add(local_dof_indices[i], local_dof_indices[j], Mlocal(i,j));
-        //         Kglobal.add(local_dof_indices[i], local_dof_indices[j], Klocal(i,j));
-        //     }
-        // }
-        constraints.distribute_local_to_global(Mlocal, local_dof_indices, Mglobal);
-        constraints.distribute_local_to_global(Klocal, local_dof_indices, Kglobal);
+        for(const unsigned int i : fe_values.dof_indices()){
+            for(const unsigned int j : fe_values.dof_indices()){
+                Mglobal.add(local_dof_indices[i], local_dof_indices[j], Mlocal(i,j));
+                Kglobal.add(local_dof_indices[i], local_dof_indices[j], Klocal(i,j));
+            }
+        }
+        // constraints.distribute_local_to_global(Mlocal, local_dof_indices, Mglobal);
+        // constraints.distribute_local_to_global(Klocal, local_dof_indices, Kglobal);
     }
 
     // std::cout << "System assembly for Mglobal and Kglobal completed" << std::endl;

@@ -19,12 +19,13 @@ void FanChen<Nsd,BfOrder>::assemble_system_F(){
         Flocal = 0.0;
 
         elem->get_dof_indices(local_dof_indices);
+        std::cout << "compute element F function called for element : " << elem->index() << std::endl;
         compute_element_F(elem, fe_values, Flocal, local_dof_indices);
 
-        // for(const unsigned int i : fe_values.dof_indices()){
-        //     Fglobal(local_dof_indices[i]) += Flocal(i);
-        // }
-        constraints.distribute_local_to_global(Flocal, local_dof_indices, Fglobal);
+        for(const unsigned int i : fe_values.dof_indices()){
+            Fglobal(local_dof_indices[i]) += Flocal(i);
+        }
+        // constraints.distribute_local_to_global(Flocal, local_dof_indices, Fglobal);
     }
 
     // std::cout << "System assembly for Fglobal completed" << std::endl;

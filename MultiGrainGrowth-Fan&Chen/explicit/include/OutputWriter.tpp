@@ -22,8 +22,8 @@ void OutputWriter<Nsd,BfOrder>::write_vtu(DoFHandler<Nsd>& dof_handler, Vector<d
 
 template <unsigned int Nsd, unsigned int BfOrder>
 void OutputWriter<Nsd,BfOrder>::write_pvd(){
-    std::string pvd_filename = "final_output.pvd";
-    std::ofstream pvd_output("final_solution.pvd");
+    std::string pvd_filename = "final_solution3.pvd";
+    std::ofstream pvd_output(pvd_filename);
 
     pvd_output << "<?xml version=\"1.0\"?>\n"
                << "<VTKFile type=\"Collection\" version=\"0.1\" "

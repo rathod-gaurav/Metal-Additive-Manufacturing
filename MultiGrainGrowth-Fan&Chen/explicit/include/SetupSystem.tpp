@@ -24,28 +24,29 @@ void FanChen<Nsd,BfOrder>::setup_system(){
     //initial conditions
     dof_locations_map = DoFTools::map_dofs_to_support_points(MappingQ1<Nsd>(), dof_handler);
     //random noise between -0.001 and 0.001
-    // std::default_random_engine gen(123);
-    // std::uniform_real_distribution<double> dist(-0.001, 0.001);
-    // for(unsigned int i = 0 ; i < p_ ; i++){
-    //     double *const row = &eta_n[i][0];
-    //     for(unsigned int j = 0 ; j < Nt ; j++){
-    //         row[j] = dist(gen);
-    //     }
-    // }
-
-    //vertical line
+    std::default_random_engine gen(123);
+    std::uniform_real_distribution<double> dist(-0.001, 0.001);
     for(unsigned int i = 0 ; i < p_ ; i++){
         double *const row = &eta_n[i][0];
         for(unsigned int j = 0 ; j < Nt ; j++){
-            if(dof_locations_map[j][0] > 192.0){
-                row[j] = 1.0;
-            }
-            else{
-                row[j] = -1.0;
-            }
+            row[j] = dist(gen);
         }
     }
 
+    //vertical line
+    // for(unsigned int i = 0 ; i < p_ ; i++){
+    //     double *const row = &eta_n[i][0];
+    //     for(unsigned int j = 0 ; j < Nt ; j++){
+    //         if(dof_locations_map[j][0] > 192.0){
+    //             row[j] = 1.0;
+    //         }
+    //         else{
+    //             row[j] = -1.0;
+    //         }
+    //     }
+    // }
+
+    //periodic bc to the initial condition
     // for(unsigned int i = 0 ; i < p_ ; i++){
     //     std::copy(&eta_n[i][0], &eta_n[i][0] + Nt, eta_ni.begin());
     //     constraints.distribute(eta_ni);

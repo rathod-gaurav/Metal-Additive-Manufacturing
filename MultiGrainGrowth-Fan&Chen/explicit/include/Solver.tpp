@@ -37,7 +37,7 @@ void FanChen<Nsd,BfOrder>::solve(){
         double Fglobal_norm = 0.0;
 
         for(unsigned int i = 0 ; i < p_ ; i++){
-            std::cout << "solver initiated for timestep " << timestep << " | Solve: " << i << std::endl;
+            // std::cout << "solver initiated for timestep " << timestep << " | Solve: " << i << std::endl;
             
             //copy ith row from eta_n to eta_ni
             std::copy(&eta_n[i][0], &eta_n[i][0] + Nt, eta_ni.begin());
@@ -45,7 +45,7 @@ void FanChen<Nsd,BfOrder>::solve(){
             Fglobal = 0.0;
             assemble_system_F();
 
-            std::cout << "Assembled Fglobal for timestep " << timestep << " | Solve: " << i << std::endl;
+            // std::cout << "Assembled Fglobal for timestep " << timestep << " | Solve: " << i << std::endl;
 
             // constraints.distribute(eta_ni);
 

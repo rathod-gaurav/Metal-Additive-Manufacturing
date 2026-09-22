@@ -52,8 +52,8 @@ int main(){
     
     //Problem parameters
     const double x_ll = 0.0; //lower left corner of the domain
-    const double x_ul = 384.0; //upper right corner of the domain
-    const unsigned int n_refinements = 9; //number of global refinements in the mesh grid
+    const double x_ul = 1.0; //upper right corner of the domain
+    const unsigned int n_refinements = 8; //number of global refinements in the mesh grid
 
     unsigned int p = 4; //number of distinct grain orientations in the domain
 
@@ -61,10 +61,10 @@ int main(){
     const double dt = 1e-2; //time step size
 
     const double L = 1.0; //mobility
-    const double kappa = 2.0; //gradient energy coefficient
+    const double kappa = 2.2*1e-5; //gradient energy coefficient
     const double alpha = 1.0; //kinetic equation coefficient alpha
     const double beta = 1.0; //kinetic equation coefficient beta
-    const double gamma = 1.0; //kinetic equation coefficient gamma
+    const double gamma = 1.5; //kinetic equation coefficient gamma
 
     OutputWriter<Nsd,BfOrder> output_writer("output3");
     FanChen<Nsd, BfOrder> problem(

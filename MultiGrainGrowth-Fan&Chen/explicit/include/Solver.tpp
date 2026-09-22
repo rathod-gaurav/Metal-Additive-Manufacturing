@@ -24,28 +24,18 @@ void FanChen<Nsd,BfOrder>::solve(){
 
     double t = dt_;
     for(unsigned int timestep = 1 ; timestep < NT_ ; timestep++){
-        //Assemble eta_n2
-        // for (unsigned int k = 0; k < p_; k++){
-        //     const double *const row = &eta_n[k][0];
-        //     for (unsigned int j = 0; j < Nt; j++){
-        //         eta_n2(j) += row[j] * row[j];
-        //     }
-        // }
 
         //debug
         double max_eta = 0.0;
         double Fglobal_norm = 0.0;
 
         for(unsigned int i = 0 ; i < p_ ; i++){
-            // std::cout << "solver initiated for timestep " << timestep << " | Solve: " << i << std::endl;
             
             //copy ith row from eta_n to eta_ni
             std::copy(&eta_n[i][0], &eta_n[i][0] + Nt, eta_ni.begin());
 
             Fglobal = 0.0;
             assemble_system_F();
-
-            // std::cout << "Assembled Fglobal for timestep " << timestep << " | Solve: " << i << std::endl;
 
             // constraints.distribute(eta_ni);
 
@@ -71,7 +61,7 @@ void FanChen<Nsd,BfOrder>::solve(){
                 Fglobal_norm = std::max(Fglobal_norm, Fglobal.l2_norm());
             }
 
-            std::cout << "Timestep: " << timestep << " | Solve: " << i << " | Iterations: " << control.last_step() << " | Residual: " << control.last_value() << std::endl;
+            // std::cout << "Timestep: " << timestep << " | Solve: " << i << " | Iterations: " << control.last_step() << " | Residual: " << control.last_value() << std::endl;
 
             std::copy(eta_np1i.begin(), eta_np1i.end(), &eta_np1[i][0]);
         }

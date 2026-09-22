@@ -13,7 +13,6 @@ void FanChen<Nsd,BfOrder>::setup_system(){
 
     eta_ni.reinit(Nt);
     eta_np1i.reinit(Nt);
-    eta_n2.reinit(Nt);
     RHS.reinit(Nt);
 
     eta_n.reinit(p_, Nt, true);

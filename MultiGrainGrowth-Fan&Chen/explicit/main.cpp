@@ -66,7 +66,7 @@ int main(){
     const double beta = 1.0; //kinetic equation coefficient beta
     const double gamma = 1.5; //kinetic equation coefficient gamma
 
-    OutputWriter<Nsd,BfOrder> output_writer("output3");
+    OutputWriter<Nsd,BfOrder> output_writer("output");
     FanChen<Nsd, BfOrder> problem(
         x_ll, x_ul, n_refinements, //for creating mesh grid
         p, //number of distinct grain orientations in the domain

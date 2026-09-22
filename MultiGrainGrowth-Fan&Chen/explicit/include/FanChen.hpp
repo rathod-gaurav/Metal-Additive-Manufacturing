@@ -48,7 +48,7 @@ class FanChen{
         SparseMatrix<double> Mglobal, Kglobal;
         Vector<double> Fglobal;
         Table<2, double> eta_n, eta_np1;
-        Vector<double> eta_ni, eta_np1i, eta_n2, RHS;
+        Vector<double> eta_ni, eta_np1i, RHS;
         Vector<double> phi;
         
 };

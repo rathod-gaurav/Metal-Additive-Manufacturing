@@ -4,21 +4,15 @@ template <unsigned int Nsd, unsigned int BfOrder>
 void FanChen<Nsd,BfOrder>::compute_element_F(const typename DoFHandler<Nsd>::active_cell_iterator& elem, FEValues<Nsd>& fe_values, Vector<double>& Flocal, std::vector<types::global_dof_index>& local_dof_indices){
     fe_values.reinit(elem);
 
-    Vector<double> eta_ni_local(fe_values.dofs_per_cell);
-    Vector<double> eta_nj_local(p_*fe_values.dofs_per_cell);
-    // std::cout << "size of eta_ni_local: " << eta_ni_local.size() << " | " << fe_values.dofs_per_cell << std::endl;
-
     for(const unsigned int A : fe_values.dof_indices()){
         eta_ni_local(A) = eta_ni(local_dof_indices[A]);
         for(unsigned int j = 0 ; j < p_ ; j++){
-            eta_nj_local(j*p_ + A) = eta_n[j][local_dof_indices[A]];
+            eta_nj_local(j*dofs_per_cell + A) = eta_n[j][local_dof_indices[A]];
         }
     }
 
     for(const unsigned int q_index : fe_values.quadrature_point_indices()){
         double eta = 0.0;
-        // Vector<double> eta_nj(Nt);
-        // eta_nj = 0.0;
 
         for(const unsigned int A : fe_values.dof_indices()){
             eta += fe_values.shape_value(A,q_index)*eta_ni_local(A);
@@ -28,7 +22,7 @@ void FanChen<Nsd,BfOrder>::compute_element_F(const typename DoFHandler<Nsd>::act
         for(unsigned int j = 0 ; j < p_ ; j++){
             double eta_j = 0.0;
             for(const unsigned int A : fe_values.dof_indices()){
-                eta_j += fe_values.shape_value(A,q_index)*eta_nj_local(j*p_ + A);
+                eta_j += fe_values.shape_value(A,q_index)*eta_nj_local(j*dofs_per_cell + A);
             }
             eta2_sum += eta_j*eta_j;
         }

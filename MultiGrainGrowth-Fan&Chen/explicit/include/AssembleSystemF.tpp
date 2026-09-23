@@ -9,7 +9,7 @@ void FanChen<Nsd,BfOrder>::assemble_system_F(){
     // the following class handles three things at once - finite element(basis functions), quadrature, and mapping from parent to real domains
     FEValues<Nsd> fe_values(fe, quadrature_formula, update_values | update_gradients | update_JxW_values); //the list of what kind of information we need on each cell is given as a collection of flags as the third argument to the constructor of FEValues class
 
-    const unsigned int dofs_per_cell = fe.n_dofs_per_cell();
+    // const unsigned int dofs_per_cell = fe.n_dofs_per_cell();
     std::vector<types::global_dof_index> local_dof_indices(dofs_per_cell);
 
     Vector<double> Flocal(dofs_per_cell);

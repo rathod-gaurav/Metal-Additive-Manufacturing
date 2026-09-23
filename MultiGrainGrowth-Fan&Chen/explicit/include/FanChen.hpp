@@ -30,7 +30,7 @@ class FanChen{
         void make_grid();
         void setup_system();
         void apply_bc();
-        void compute_element(const typename DoFHandler<Nsd>::active_cell_iterator& elem, FEValues<Nsd>& fe_values, FullMatrix<double>& Mlocal, FullMatrix<double>& Klocal, std::vector<types::global_dof_index>& local_dof_indices);
+        void compute_element(const typename DoFHandler<Nsd>::active_cell_iterator& elem, FEValues<Nsd>& fe_values, FullMatrix<double>& Mlocal, FullMatrix<double>& Klocal);
         void compute_element_F(const typename DoFHandler<Nsd>::active_cell_iterator& elem, FEValues<Nsd>& fe_values, Vector<double>& Flocal, std::vector<types::global_dof_index>& local_dof_indices);
         void assemble_system();
         void assemble_system_F();
@@ -42,6 +42,7 @@ class FanChen{
         DoFHandler<Nsd> dof_handler;
         AffineConstraints<double> constraints; //constraints object to handle periodic boundary conditions and hanging nodes
         unsigned int Nt; //total number of degrees of freedom
+        const unsigned int dofs_per_cell = fe.n_dofs_per_cell();
         std::map<types::global_dof_index, Point<Nsd>> dof_locations_map;
 
         SparsityPattern sparsity_pattern;
@@ -50,6 +51,7 @@ class FanChen{
         Table<2, double> eta_n, eta_np1;
         Vector<double> eta_ni, eta_np1i, RHS;
         Vector<double> phi;
+        Vector<double> eta_ni_local, eta_nj_local;
         
 };
 

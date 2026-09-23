@@ -2,9 +2,5 @@ build
 output
 final_solution.pvd
 random_noise_IC.mp4
-debug
-output2
-output3
-final_solution2.pvd
-output4
-final_solution3.pvd
+output1
+final_solution1.pvd

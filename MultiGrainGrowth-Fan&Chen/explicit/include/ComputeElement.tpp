@@ -1,7 +1,7 @@
 #pragma once
 
 template <unsigned int Nsd, unsigned int BfOrder>
-void FanChen<Nsd,BfOrder>::compute_element(const typename DoFHandler<Nsd>::active_cell_iterator& elem, FEValues<Nsd>& fe_values, FullMatrix<double>& Mlocal, FullMatrix<double>& Klocal, std::vector<types::global_dof_index>& local_dof_indices){
+void FanChen<Nsd,BfOrder>::compute_element(const typename DoFHandler<Nsd>::active_cell_iterator& elem, FEValues<Nsd>& fe_values, FullMatrix<double>& Mlocal, FullMatrix<double>& Klocal){
     fe_values.reinit(elem);
 
     for(const unsigned int q_index : fe_values.quadrature_point_indices()){

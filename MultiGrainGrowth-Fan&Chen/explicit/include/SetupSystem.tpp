@@ -20,6 +20,10 @@ void FanChen<Nsd,BfOrder>::setup_system(){
 
     phi.reinit(Nt);
 
+    eta_ni_local.reinit(dofs_per_cell);
+    eta_nj_local.reinit(p_*dofs_per_cell);
+
+
     //initial conditions
     dof_locations_map = DoFTools::map_dofs_to_support_points(MappingQ1<Nsd>(), dof_handler);
     //random noise between -0.001 and 0.001

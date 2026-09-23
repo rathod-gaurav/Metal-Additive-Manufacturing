@@ -20,7 +20,7 @@ void FanChen<Nsd,BfOrder>::assemble_system(){
         Klocal = 0.0;
 
         elem->get_dof_indices(local_dof_indices);
-        compute_element(elem, fe_values, Mlocal, Klocal, local_dof_indices);
+        compute_element(elem, fe_values, Mlocal, Klocal);
 
         for(const unsigned int i : fe_values.dof_indices()){
             for(const unsigned int j : fe_values.dof_indices()){

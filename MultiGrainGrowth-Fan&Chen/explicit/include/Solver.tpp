@@ -53,7 +53,7 @@ void FanChen<Nsd,BfOrder>::solve(){
             SolverCG<Vector<double>> cgsolver(control);
             cgsolver.solve(Mglobal, eta_np1i, RHS, prec);
 
-            // constraints.distribute(eta_np1i);
+            constraints.distribute(eta_np1i);
 
             //debug
             for(unsigned int i = 0 ; i < p_ ; i++){

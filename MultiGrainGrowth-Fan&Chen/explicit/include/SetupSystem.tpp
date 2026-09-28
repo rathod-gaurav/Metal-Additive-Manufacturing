@@ -50,11 +50,11 @@ void FanChen<Nsd,BfOrder>::setup_system(){
     // }
 
     //periodic bc to the initial condition
-    // for(unsigned int i = 0 ; i < p_ ; i++){
-    //     std::copy(&eta_n[i][0], &eta_n[i][0] + Nt, eta_ni.begin());
-    //     constraints.distribute(eta_ni);
-    //     std::copy(eta_ni.begin(), eta_ni.end(), &eta_n[i][0]);
-    // }
+    for(unsigned int i = 0 ; i < p_ ; i++){
+        std::copy(&eta_n[i][0], &eta_n[i][0] + Nt, eta_ni.begin());
+        constraints.distribute(eta_ni);
+        std::copy(eta_ni.begin(), eta_ni.end(), &eta_n[i][0]);
+    }
 
     std::cout << "System setup successful. All global system matrices and vectors initialized" << std::endl;
 }

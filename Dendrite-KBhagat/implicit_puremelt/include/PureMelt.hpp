@@ -18,8 +18,8 @@ class PureMelt{
         Triangulation<Nsd> triangulation;
         FESystem<Nsd> fe; //two variables per node
         DoFHandler<Nsd> dof_handler;
-
         unsigned int Nt;
+
 };
 
 #include "PureMelt.tpp"

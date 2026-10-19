@@ -12,4 +12,14 @@ void PureMelt<Nsd,BfOrder>::setup_system(){
     constexpr Differentiation::AD::NumberTypes ADTypeCode = Differentiation::AD::NumberTypes::sacado_dfad;
     using ADHelper = Differentiation::AD::ResidualLinearization<ADTypeCode, double>;
     using ADNumber = typename ADHelper::ad_type;
+
+    DynamicSparsityPattern dsp(Nt);
+    DoFTools::make_sparsity_pattern(dof_handler,dsp); //coupled both u and phi
+    sparsity_pattern.copy_from(dsp);
+
+    system_jacobian.reinit(sparsity_pattern);
+    system_residual.reinit(Nt);
+    solution.reinit(Nt);
+    solution_old.reinit(Nt);
+    newton_update.reinit(Nt);
 }

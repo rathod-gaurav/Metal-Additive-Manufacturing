@@ -2,12 +2,19 @@
 
 #include <deal.II/grid/tria.h> //triangulation
 #include <deal.II/dofs/dof_handler.h> //enumeration of degrees of freedom
+#include <deal.II/dofs/dof_tools.h>
 #include <deal.II/grid/grid_generator.h> //grid generation
 
 #include <deal.II/fe/fe_system.h>
 #include <deal.II/fe/fe_q.h>
 
 #include <deal.II/differentiation/ad.h>
+
+//linear algebra
+#include <deal.II/lac/vector.h>
+#include <deal.II/lac/full_matrix.h>
+#include <deal.II/lac/sparse_matrix.h>
+#include <deal.II/lac/dynamic_sparsity_pattern.h>
 
 using namespace dealii;
 #include "PureMelt.hpp"

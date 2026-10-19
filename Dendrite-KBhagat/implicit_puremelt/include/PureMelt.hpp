@@ -20,6 +20,14 @@ class PureMelt{
         DoFHandler<Nsd> dof_handler;
         unsigned int Nt;
 
+        SparsityPattern sparsity_pattern;
+        SparseMatrix<double> system_jacobian;
+        Vector<double> solution; //solution at current timestep
+        Vector<double> solution_old; //solution at previous timestep
+        Vector<double> newton_update;
+        Vector<double> system_residual;
+
+
 };
 
 #include "PureMelt.tpp"

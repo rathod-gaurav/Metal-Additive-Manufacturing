@@ -4,12 +4,15 @@
 #include <deal.II/dofs/dof_handler.h> //enumeration of degrees of freedom
 #include <deal.II/grid/grid_generator.h> //grid generation
 
+#include <deal.II/fe/fe_system.h>
+#include <deal.II/fe/fe_q.h>
+
 using namespace dealii;
 #include "PureMelt.hpp"
 
 int main(){
-    constexpr unsigned int Nsd = 1;
-    constexpr unsigned int BfOrder = 2;
+    constexpr unsigned int Nsd = 2;
+    constexpr unsigned int BfOrder = 1;
 
     //Mesh
     const double x_ll = -250.0;

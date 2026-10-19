@@ -13,9 +13,15 @@ class PureMelt{
         const unsigned int n_elements_;
 
         void make_grid();
+        void setup_system();
 
         Triangulation<Nsd> triangulation;
+        FESystem<Nsd> fe; //two variables per node
+        DoFHandler<Nsd> dof_handler;
+
+        unsigned int Nt;
 };
 
 #include "PureMelt.tpp"
 #include "MakeGrid.tpp"
+#include "SetupSystem.tpp"

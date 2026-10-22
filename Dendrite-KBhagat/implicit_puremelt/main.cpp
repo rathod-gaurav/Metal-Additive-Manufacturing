@@ -15,6 +15,7 @@
 #include <deal.II/lac/full_matrix.h>
 #include <deal.II/lac/sparse_matrix.h>
 #include <deal.II/lac/dynamic_sparsity_pattern.h>
+#include <deal.II/lac/sparse_direct.h>
 
 using namespace dealii;
 #include "PureMelt.hpp"
@@ -28,8 +29,16 @@ int main(){
     const double x_ul = 250.0;
     const unsigned int n_elements = 250; //number of elements per side
 
+    //NR parameters
+    const unsigned int NT = 10; //total number of timesteps
+    const double dt = 0.01; //timestep size
+    const unsigned int N_NR = 10; //total number of newton iterates per timestep
+    const double epsilon_NR = 1e-6; //NR convergence tolerance
+
+
     PureMelt<Nsd,BfOrder> problem(
-        x_ll, x_ul, n_elements
+        x_ll, x_ul, n_elements,
+        NT, dt, N_NR, epsilon_NR
     );
 
     problem.run();

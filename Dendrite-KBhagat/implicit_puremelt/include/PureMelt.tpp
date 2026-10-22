@@ -2,10 +2,12 @@
 
 template<unsigned int Nsd, unsigned int BfOrder>
 PureMelt<Nsd,BfOrder>::PureMelt(
-    const double x_ll, const double x_ul, const unsigned int n_elements
+    const double x_ll, const double x_ul, const unsigned int n_elements,
+    const unsigned int NT, const double dt, const unsigned int N_NR, const double epsilon_NR
 ) :
     x_ll_(x_ll), x_ul_(x_ul), n_elements_(n_elements),
-    fe(FE_Q<Nsd>(BfOrder), 2),
+    NT_(NT), dt_(dt), N_NR_(N_NR), epsilon_NR_(epsilon_NR),
+    fe(FE_Q<Nsd>(BfOrder), 2), //2 for 2 fields per node
     dof_handler(triangulation)
 {}
 
@@ -13,4 +15,5 @@ template<unsigned int Nsd, unsigned int BfOrder>
 void PureMelt<Nsd,BfOrder>::run(){
     make_grid();
     setup_system();
+    solve();
 }

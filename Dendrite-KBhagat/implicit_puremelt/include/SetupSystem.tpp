@@ -17,9 +17,9 @@ void PureMelt<Nsd,BfOrder>::setup_system(){
     DoFTools::make_sparsity_pattern(dof_handler,dsp); //coupled both u and phi
     sparsity_pattern.copy_from(dsp);
 
-    system_jacobian.reinit(sparsity_pattern);
-    system_residual.reinit(Nt);
-    solution.reinit(Nt);
-    solution_old.reinit(Nt);
-    newton_update.reinit(Nt);
+    NR_jacobian.reinit(sparsity_pattern);
+    NR_residual.reinit(Nt);
+    sol_k.reinit(Nt);
+    sol_n.reinit(Nt);
+    NR_update.reinit(Nt);
 }

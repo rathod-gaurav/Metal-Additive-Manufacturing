@@ -8,11 +8,6 @@ void PureMelt<Nsd,BfOrder>::setup_system(){
     std::cout << "DoFs per cell: " << fe.n_dofs_per_cell() << std::endl;
     std::cout << "Total number of degrees of freedom: " << Nt << std::endl;
 
-    // automatic differentiation setup
-    constexpr Differentiation::AD::NumberTypes ADTypeCode = Differentiation::AD::NumberTypes::sacado_dfad;
-    using ADHelper = Differentiation::AD::ResidualLinearization<ADTypeCode, double>;
-    using ADNumber = typename ADHelper::ad_type;
-
     DynamicSparsityPattern dsp(Nt);
     DoFTools::make_sparsity_pattern(dof_handler,dsp); //coupled both u and phi
     sparsity_pattern.copy_from(dsp);

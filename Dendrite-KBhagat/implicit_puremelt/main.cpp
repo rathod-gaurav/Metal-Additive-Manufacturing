@@ -19,6 +19,13 @@
 #include <deal.II/lac/dynamic_sparsity_pattern.h>
 #include <deal.II/lac/sparse_direct.h>
 
+//output
+#include <deal.II/numerics/data_out.h>
+#include <fstream>
+#include <iostream>
+#include <filesystem>
+#include <cmath>
+
 using namespace dealii;
 #include "PureMelt.hpp"
 #include "OutputWriter.hpp"

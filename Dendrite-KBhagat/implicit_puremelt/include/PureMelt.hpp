@@ -2,7 +2,7 @@
 
 #include "OutputWriter.hpp"
 
-template<unsigned int Nsd, unsigned int Nne>
+template<unsigned int Nsd, unsigned int BfOrder>
 class PureMelt{
     public:
         PureMelt(

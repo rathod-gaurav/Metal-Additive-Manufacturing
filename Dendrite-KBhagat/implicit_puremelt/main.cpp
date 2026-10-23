@@ -10,6 +10,9 @@
 #include <deal.II/fe/fe_system.h>
 #include <deal.II/fe/fe_q.h>
 
+#include <deal.II/fe/fe_values.h> //used to assemble matrix using quadrature on each cell
+#include <deal.II/base/quadrature_lib.h> //quadrature rules
+
 #include <deal.II/differentiation/ad.h>
 
 //linear algebra
@@ -33,6 +36,7 @@ using namespace dealii;
 int main(){
     constexpr unsigned int Nsd = 2;
     constexpr unsigned int BfOrder = 1;
+    const unsigned int quadOrder = BfOrder + 1;
 
     //Mesh
     const double x_ll = -250.0;
@@ -54,7 +58,7 @@ int main(){
     OutputWriter<Nsd,BfOrder> output_writer("output");
 
     PureMelt<Nsd,BfOrder> problem(
-        x_ll, x_ul, n_elements,
+        x_ll, x_ul, n_elements, quadOrder,
         undercooling, seed_center, seed_radius,
         NT, dt, N_NR, epsilon_NR,
         output_writer

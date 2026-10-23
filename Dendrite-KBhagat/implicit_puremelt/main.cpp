@@ -5,6 +5,7 @@
 #include <deal.II/dofs/dof_tools.h>
 #include <deal.II/grid/grid_generator.h> //grid generation
 #include <deal.II/base/point.h>
+#include <deal.II/numerics/vector_tools.h>
 
 #include <deal.II/fe/fe_system.h>
 #include <deal.II/fe/fe_q.h>

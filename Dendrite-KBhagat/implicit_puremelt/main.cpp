@@ -37,10 +37,10 @@ int main(){
     const double epsilon_NR = 1e-6; //NR convergence tolerance
 
     //Initial conditions
-    undercooling = -0.65;
-    Point<Nsd> seed_center; 
+    const double undercooling = -0.65;
+    const Point<Nsd> seed_center; 
     seed_center[0] = 0.0; seed_center[1] = 0.0; //seed_center[2] = 0.0;
-    double seed_radius = 5.0;
+    const double seed_radius = 5.0;
 
     PureMelt<Nsd,BfOrder> problem(
         x_ll, x_ul, n_elements,

@@ -1,12 +1,15 @@
 #pragma once
 
+#include "OutputWriter.hpp"
+
 template<unsigned int Nsd, unsigned int Nne>
 class PureMelt{
     public:
         PureMelt(
             const double x_ll, const double x_ul, const unsigned int n_elements, //mesh
             const double undercooling, Point<Nsd> seed_center, const double seed_radius, //initial conditions
-            const unsigned int NT, const double dt, const unsigned int N_NR, const double epsilon_NR //newton solver
+            const unsigned int NT, const double dt, const unsigned int N_NR, const double epsilon_NR, //newton solver
+            OutputWriter<Nsd,BfOrder>& output_writer
         );
         void run();
     
@@ -20,6 +23,7 @@ class PureMelt{
         const double dt_;
         const unsigned int N_NR_;
         const double epsilon_NR_;
+        OutputWriter<Nsd,BfOrder>& output_writer_;
 
         void make_grid();
         void setup_system();

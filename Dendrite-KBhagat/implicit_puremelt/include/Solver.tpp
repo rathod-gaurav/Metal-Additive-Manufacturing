@@ -10,9 +10,9 @@ void PureMelt<Nsd,BfOrder>::solve(){
 
     double t = 0.0;
 
-    // std::ofstream pvd_output(output_writer_.get_output_dir() + "/final_solution.pvd");
-    // output_writer_.initiate_pvd(pvd_output); //initiated pvd file with headers
-    // output_writer_.write_vtu_and_pvd(dof_handler, sol_n, {"u", "phi"}, 0, pvd_output);
+    std::ofstream pvd_output(output_writer_.get_output_dir() + "/final_solution.pvd");
+    output_writer_.initiate_pvd(pvd_output); //initiated pvd file with headers
+    output_writer_.write_vtu_and_pvd(dof_handler, sol_n, {"u", "phi"}, 0, pvd_output);
 
     for(unsigned int timestep = 1 ; timestep <= NT_ ; timestep++){
         t += dt_;
@@ -54,7 +54,7 @@ void PureMelt<Nsd,BfOrder>::solve(){
         // }
     }
 
-    // output_writer_.finish_pvd(pvd_output); //finishes pvd file with footer
+    output_writer_.finish_pvd(pvd_output); //finishes pvd file with footer
 
     std::cout << "Congratulations! Solve Completed." << t << std::endl;
 }

@@ -21,6 +21,7 @@
 
 using namespace dealii;
 #include "PureMelt.hpp"
+#include "OutputWriter.hpp"
 
 int main(){
     constexpr unsigned int Nsd = 2;
@@ -43,10 +44,13 @@ int main(){
     seed_center[0] = 0.0; seed_center[1] = 0.0; //seed_center[2] = 0.0;
     const double seed_radius = 5.0;
 
+    OutputWriter<Nsd,BfOrder> output_writer("output");
+
     PureMelt<Nsd,BfOrder> problem(
         x_ll, x_ul, n_elements,
         undercooling, seed_center, seed_radius,
-        NT, dt, N_NR, epsilon_NR
+        NT, dt, N_NR, epsilon_NR,
+        output_writer
     );
 
     problem.run();

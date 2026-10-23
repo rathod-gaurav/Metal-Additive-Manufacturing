@@ -4,6 +4,7 @@
 #include <deal.II/dofs/dof_handler.h> //enumeration of degrees of freedom
 #include <deal.II/dofs/dof_tools.h>
 #include <deal.II/grid/grid_generator.h> //grid generation
+#include <deal.II/base/point.h>
 
 #include <deal.II/fe/fe_system.h>
 #include <deal.II/fe/fe_q.h>
@@ -35,9 +36,15 @@ int main(){
     const unsigned int N_NR = 10; //total number of newton iterates per timestep
     const double epsilon_NR = 1e-6; //NR convergence tolerance
 
+    //Initial conditions
+    undercooling = -0.65;
+    Point<Nsd> seed_center; 
+    seed_center[0] = 0.0; seed_center[1] = 0.0; //seed_center[2] = 0.0;
+    double seed_radius = 5.0;
 
     PureMelt<Nsd,BfOrder> problem(
         x_ll, x_ul, n_elements,
+        undercooling, seed_center, seed_radius,
         NT, dt, N_NR, epsilon_NR
     );
 

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "InitialConditions.hpp"
+
 template<unsigned int Nsd, unsigned int BfOrder>
 void PureMelt<Nsd,BfOrder>::setup_system(){
     dof_handler.distribute_dofs(fe);
@@ -17,4 +19,7 @@ void PureMelt<Nsd,BfOrder>::setup_system(){
     sol_k.reinit(Nt);
     sol_n.reinit(Nt);
     NR_update.reinit(Nt);
+
+    VectorTools::interpolate(dof_handler, InitialConditions<Nsd>(undercooling_, seed_center_, seed_radius_), sol_n);
+    sol_k = sol_n; //guess for Newton's first iteration
 }

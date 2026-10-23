@@ -4,14 +4,18 @@ template<unsigned int Nsd, unsigned int Nne>
 class PureMelt{
     public:
         PureMelt(
-            const double x_ll, const double x_ul, const unsigned int n_elements,
-            const unsigned int NT, const double dt, const unsigned int N_NR, const double epsilon_NR
+            const double x_ll, const double x_ul, const unsigned int n_elements, //mesh
+            const double undercooling, const Point<Nsd> seed_center, const double seed_radius, //initial conditions
+            const unsigned int NT, const double dt, const unsigned int N_NR, const double epsilon_NR //newton solver
         );
         void run();
     
     private:
         const double x_ll_, x_ul_;
         const unsigned int n_elements_;
+        const double undercooling_;
+        const Point<Nsd> seed_center_;
+        const double seed_radius_;
         const unsigned int NT_;
         const double dt_;
         const unsigned int N_NR_;

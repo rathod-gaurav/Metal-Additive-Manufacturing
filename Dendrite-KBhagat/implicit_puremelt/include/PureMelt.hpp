@@ -5,7 +5,7 @@ class PureMelt{
     public:
         PureMelt(
             const double x_ll, const double x_ul, const unsigned int n_elements, //mesh
-            const double undercooling, const Point<Nsd> seed_center, const double seed_radius, //initial conditions
+            const double undercooling, Point<Nsd> seed_center, const double seed_radius, //initial conditions
             const unsigned int NT, const double dt, const unsigned int N_NR, const double epsilon_NR //newton solver
         );
         void run();
@@ -14,7 +14,7 @@ class PureMelt{
         const double x_ll_, x_ul_;
         const unsigned int n_elements_;
         const double undercooling_;
-        const Point<Nsd> seed_center_;
+        Point<Nsd> seed_center_;
         const double seed_radius_;
         const unsigned int NT_;
         const double dt_;

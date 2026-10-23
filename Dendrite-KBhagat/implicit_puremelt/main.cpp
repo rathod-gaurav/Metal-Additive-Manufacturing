@@ -38,7 +38,7 @@ int main(){
 
     //Initial conditions
     const double undercooling = -0.65;
-    const Point<Nsd> seed_center; 
+    Point<Nsd> seed_center; 
     seed_center[0] = 0.0; seed_center[1] = 0.0; //seed_center[2] = 0.0;
     const double seed_radius = 5.0;
 

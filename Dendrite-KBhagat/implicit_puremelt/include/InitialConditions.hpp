@@ -5,7 +5,7 @@ class InitialConditions : public Function<Nsd>{ //this class is the function in 
     public: //everything public in function stays public in our class
         //class constructor
         InitialConditions(const double undercooling,
-                          const Point<Nsd>& seed_center,
+                          Point<Nsd>& seed_center,
                           const double seed_radius,
                           const double lambda0 = 1.0)//we fix lambda0 specifically for the initial condition seed here
         : Function<Nsd>(2), //2 for two fields - temp u and phi
@@ -24,5 +24,5 @@ class InitialConditions : public Function<Nsd>{ //this class is the function in 
         }
 
     private:
-        const double undercooling_; const Point<Nsd> seed_center_; const double seed_radius_, lambda0;
+        const double undercooling_; const Point<Nsd> seed_center_; const double seed_radius_, lambda0_;
 };

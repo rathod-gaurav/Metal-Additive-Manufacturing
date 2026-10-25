@@ -1,5 +1,7 @@
 #pragma once
 
+#include "ComputeElement.tpp"
+
 template<unsigned int Nsd, unsigned int BfOrder>
 void PureMelt<Nsd,BfOrder>::assemble_system(){
     NR_jacobian = 0.0;
@@ -21,7 +23,7 @@ void PureMelt<Nsd,BfOrder>::assemble_system(){
         Rlocal = 0.0;
 
         elem->get_dof_indices(local_dof_indices);
-        // compute_element_ad(elem, fe_values, Jlocal, Rlocal, local_dof_indices);
+        compute_element(elem, fe_values, Jlocal, Rlocal, local_dof_indices);
 
         for(const unsigned int i : fe_values.dof_indices()){
             NR_residual(local_dof_indices[i]) += Rlocal(i);

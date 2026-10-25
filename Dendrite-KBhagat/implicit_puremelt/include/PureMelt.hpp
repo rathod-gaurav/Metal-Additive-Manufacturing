@@ -7,7 +7,7 @@ class PureMelt{
     public:
         PureMelt(
             const double x_ll, const double x_ul, const unsigned int n_elements, const unsigned int quadOrder, //mesh
-            const double undercooling, Point<Nsd> seed_center, const double seed_radius, //initial conditions
+            const unsigned int N_FIELDS, const double undercooling, Point<Nsd> seed_center, const double seed_radius, //initial conditions
             const unsigned int NT, const double dt, const unsigned int N_NR, const double epsilon_NR, //newton solver
             OutputWriter<Nsd,BfOrder>& output_writer
         );
@@ -17,6 +17,7 @@ class PureMelt{
         const double x_ll_, x_ul_;
         const unsigned int n_elements_;
         const unsigned int quadOrder_;
+        const unsigned int N_FIELDS_;
         const double undercooling_;
         Point<Nsd> seed_center_;
         const double seed_radius_;
@@ -29,6 +30,11 @@ class PureMelt{
         void make_grid();
         void setup_system();
         void assemble_system();
+        compute_element(
+            const typename DoFHandler<Nsd>::active_cell_iterator& elem, FEValues<Nsd>& fe_values, 
+            FullMatrix<double>& Jlocal, Vector<double>& Rlocal,
+            const std::vector<types::global_dof_index>& local_dof_indices
+        )
         void solve();
 
         Triangulation<Nsd> triangulation;

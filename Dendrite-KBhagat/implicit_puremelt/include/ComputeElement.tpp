@@ -12,7 +12,7 @@ void PureMelt<Nsd,BfOrder>::compute_element(
 
     fe_values.reinit(elem);
     const unsigned int dofs_per_cell = fe.n_dofs_per_cell();
-    const unsigned int n_q = fe_values.n_quadrature_points();
+    const unsigned int n_q = fe_values.n_quadrature_points;
 
     //Step 1: fresh helper for this element
     ADHelper ad_helper(dofs_per_cell, dofs_per_cell);

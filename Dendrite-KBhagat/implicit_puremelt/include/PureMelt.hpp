@@ -30,11 +30,11 @@ class PureMelt{
         void make_grid();
         void setup_system();
         void assemble_system();
-        compute_element(
+        void compute_element(
             const typename DoFHandler<Nsd>::active_cell_iterator& elem, FEValues<Nsd>& fe_values, 
             FullMatrix<double>& Jlocal, Vector<double>& Rlocal,
             const std::vector<types::global_dof_index>& local_dof_indices
-        )
+        );
         void solve();
 
         Triangulation<Nsd> triangulation;

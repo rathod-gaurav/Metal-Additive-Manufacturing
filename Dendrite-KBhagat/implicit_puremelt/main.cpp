@@ -9,6 +9,7 @@
 
 #include <deal.II/fe/fe_system.h>
 #include <deal.II/fe/fe_q.h>
+#include <deal.II/fe/fe_values_extractors.h>
 
 #include <deal.II/fe/fe_values.h> //used to assemble matrix using quadrature on each cell
 #include <deal.II/base/quadrature_lib.h> //quadrature rules

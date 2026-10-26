@@ -13,7 +13,11 @@ PureMelt<Nsd,BfOrder>::PureMelt(
     output_writer_(output_writer),
     fe(FE_Q<Nsd>(BfOrder), N_FIELDS_), //2 for 2 fields per node
     dof_handler(triangulation)
-{}
+{
+    for(unsigned int f = 0 ; f < N_FIELDS_ ; f++){
+        field_ext.emplace_back(f);
+    }
+}
 
 template<unsigned int Nsd, unsigned int BfOrder>
 void PureMelt<Nsd,BfOrder>::run(){

@@ -46,6 +46,7 @@ class PureMelt{
         FESystem<Nsd> fe; //two variables per node
         DoFHandler<Nsd> dof_handler;
         unsigned int Nt;
+        std::vector<FEValuesExtractors::Scalar> field_ext; //field_ext[f] picks fielf f
 
         SparsityPattern sparsity_pattern;
         SparseMatrix<double> NR_jacobian;

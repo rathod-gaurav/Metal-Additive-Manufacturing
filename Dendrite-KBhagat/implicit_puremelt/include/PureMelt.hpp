@@ -3,14 +3,17 @@
 #include "OutputWriter.hpp"
 #include "QPFields.hpp"
 
+#include "ConstitutiveModel.hpp"
+
 template<unsigned int Nsd, unsigned int BfOrder>
 class PureMelt{
     public:
         PureMelt(
             const double x_ll, const double x_ul, const unsigned int n_elements, const unsigned int quadOrder, //mesh
-            const unsigned int N_FIELDS, const double undercooling, Point<Nsd> seed_center, const double seed_radius, //initial conditions
+            const unsigned int TEMP, const unsigned int PHI, const unsigned int N_FIELDS, 
+            const double undercooling, Point<Nsd> seed_center, const double seed_radius, //initial conditions
             const unsigned int NT, const double dt, const unsigned int N_NR, const double epsilon_NR, //newton solver
-            OutputWriter<Nsd,BfOrder>& output_writer
+            const ConstitutiveModel& model, OutputWriter<Nsd,BfOrder>& output_writer
         );
         void run();
     
@@ -18,6 +21,8 @@ class PureMelt{
         const double x_ll_, x_ul_;
         const unsigned int n_elements_;
         const unsigned int quadOrder_;
+        const unsigned int TEMP_;
+        const unsigned int PHI_;
         const unsigned int N_FIELDS_;
         const double undercooling_;
         Point<Nsd> seed_center_;
@@ -26,6 +31,7 @@ class PureMelt{
         const double dt_;
         const unsigned int N_NR_;
         const double epsilon_NR_;
+        const ConstitutiveModel& model_;
         OutputWriter<Nsd,BfOrder>& output_writer_;
 
         void make_grid();
@@ -43,7 +49,7 @@ class PureMelt{
         template<typename Number>
         void element_residual(
             const FEValues<Nsd>& fe_values, const QPFields<Nsd,Number>& fields, std::vector<Number>& Rlocal
-        )
+        ) const;
         void solve();
 
         Triangulation<Nsd> triangulation;

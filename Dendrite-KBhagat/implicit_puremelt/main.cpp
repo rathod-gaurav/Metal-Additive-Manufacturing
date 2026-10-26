@@ -32,6 +32,7 @@
 
 using namespace dealii;
 #include "PureMelt.hpp"
+#include "ConstitutiveModel.hpp"
 #include "OutputWriter.hpp"
 
 int main(){
@@ -45,7 +46,7 @@ int main(){
     const unsigned int n_elements = 250; //number of elements per side
 
     //NR parameters
-    const unsigned int NT = 10; //total number of timesteps
+    const unsigned int NT = 100; //total number of timesteps
     const double dt = 0.01; //timestep size
     const unsigned int N_NR = 10; //total number of newton iterates per timestep
     const double epsilon_NR = 1e-6; //NR convergence tolerance
@@ -61,13 +62,20 @@ int main(){
     seed_center[0] = 0.0; seed_center[1] = 0.0; //seed_center[2] = 0.0;
     const double seed_radius = 5.0;
 
+    const double D = 1.0;
+    const double eps4 = 0.05;
+    const double lambda0 = 1.0;
+    const double tau0 = 1.0;
+    const double xi = 1.596;
+    ConstitutiveModel model(D, eps4, lambda0, tau0, xi);
+
     OutputWriter<Nsd,BfOrder> output_writer("output");
 
     PureMelt<Nsd,BfOrder> problem(
         x_ll, x_ul, n_elements, quadOrder,
-        N_FIELDS, undercooling, seed_center, seed_radius,
+        TEMP, PHI, N_FIELDS, undercooling, seed_center, seed_radius,
         NT, dt, N_NR, epsilon_NR,
-        output_writer
+        model, output_writer
     );
 
     problem.run();

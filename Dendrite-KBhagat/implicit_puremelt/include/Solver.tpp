@@ -50,7 +50,7 @@ void PureMelt<Nsd,BfOrder>::solve(){
         sol_n = sol_k; //accept the new time level
 
         // if(timestep % 10 == 0){
-        //     output_writer_.write_vtu_and_pvd(dof_handler, sol_n, {"u", "phi"}, timestep, pvd_output);
+            output_writer_.write_vtu_and_pvd(dof_handler, sol_n, {"u", "phi"}, timestep, pvd_output);
         // }
     }
 

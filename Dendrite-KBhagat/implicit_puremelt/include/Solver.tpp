@@ -56,5 +56,5 @@ void PureMelt<Nsd,BfOrder>::solve(){
 
     output_writer_.finish_pvd(pvd_output); //finishes pvd file with footer
 
-    std::cout << "Congratulations! Solve Completed." << t << std::endl;
+    std::cout << "Congratulations! Solve Completed." << std::endl;
 }

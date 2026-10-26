@@ -1,6 +1,7 @@
 #pragma once
 
 #include "OutputWriter.hpp"
+#include "QPFields.hpp"
 
 template<unsigned int Nsd, unsigned int BfOrder>
 class PureMelt{
@@ -35,6 +36,9 @@ class PureMelt{
             FullMatrix<double>& Jlocal, Vector<double>& Rlocal,
             const std::vector<types::global_dof_index>& local_dof_indices
         );
+        void evaluate_fields(
+            const FEValues<Nsd>& fe_values, const std::vector<Number>& local_dof_values, QPFields<Nsd,Number>& fields
+        ) const;
         void solve();
 
         Triangulation<Nsd> triangulation;

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ADConfig.hpp"
+#include "EvaluateFields.tpp"
 
 template<unsigned int Nsd, unsigned int BfOrder>
 void PureMelt<Nsd,BfOrder>::compute_element(
@@ -21,5 +22,8 @@ void PureMelt<Nsd,BfOrder>::compute_element(
     ad_helper.register_dof_values(sol_k, local_dof_indices);
     const std::vector<ADNumber>& dof_values_ad = ad_helper.get_sensitive_dof_values();
 
+    //Step 3: fields at the quadrature points, as AD Numbers
+    QPFields<Nsd,ADNumber> fields(N_FIELDS_, n_q);
+    evaluate_fields<ADNumber>(fe_values, dof_values_AD, fields);
 
 }

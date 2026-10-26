@@ -1,6 +1,6 @@
 #pragma once
 
-template<unsigend int Nsd, unsigned int BfOrder>
+template<unsigned int Nsd, unsigned int BfOrder>
 template<typename Number>
 void PureMelt<Nsd,BfOrder>::evaluate_fields(
     const FEValues<Nsd>& fe_values, const std::vector<Number>& local_dof_values, QPFields<Nsd,Number>& fields

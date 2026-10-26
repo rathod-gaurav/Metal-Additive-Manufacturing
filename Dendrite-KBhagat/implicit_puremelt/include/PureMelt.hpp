@@ -36,6 +36,7 @@ class PureMelt{
             FullMatrix<double>& Jlocal, Vector<double>& Rlocal,
             const std::vector<types::global_dof_index>& local_dof_indices
         );
+        template<typename Number>
         void evaluate_fields(
             const FEValues<Nsd>& fe_values, const std::vector<Number>& local_dof_values, QPFields<Nsd,Number>& fields
         ) const;

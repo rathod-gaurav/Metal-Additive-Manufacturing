@@ -24,6 +24,6 @@ void PureMelt<Nsd,BfOrder>::compute_element(
 
     //Step 3: fields at the quadrature points, as AD Numbers
     QPFields<Nsd,ADNumber> fields(N_FIELDS_, n_q);
-    evaluate_fields<ADNumber>(fe_values, dof_values_AD, fields);
+    evaluate_fields<ADNumber>(fe_values, dof_values_ad, fields);
 
 }

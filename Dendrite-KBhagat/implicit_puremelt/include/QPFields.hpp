@@ -5,7 +5,7 @@
 
 template<unsigned int Nsd, typename Number>
 struct QPFields{//everything the residual needs at the quadrature point of each element
-    QPFields(const unsigned int n_fields, const unsigend int n_q)
+    QPFields(const unsigned int n_fields, const unsigned int n_q)
     :   
         val(n_fields, std::vector<Number>(n_q)),
         grad(n_fields, std::vector<Tensor<1,Nsd,Number>>(n_q)), //Create a dynamic list of rank-1 tensors (each sized for Nsd dimensions using double precision), and size the list to hold n_q items  
@@ -17,4 +17,4 @@ struct QPFields{//everything the residual needs at the quadrature point of each 
     std::vector<std::vector<Tensor<1,Nsd,Number>>>  grad;
     std::vector<std::vector<double>>                val_old;
     std::vector<std::vector<Tensor<1,Nsd,double>>>  grad_old;
-}
+};

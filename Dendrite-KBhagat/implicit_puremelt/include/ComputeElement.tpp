@@ -2,6 +2,7 @@
 
 #include "ADConfig.hpp"
 #include "EvaluateFields.tpp"
+#include "ElementResidual.tpp"
 
 template<unsigned int Nsd, unsigned int BfOrder>
 void PureMelt<Nsd,BfOrder>::compute_element(
@@ -26,4 +27,7 @@ void PureMelt<Nsd,BfOrder>::compute_element(
     QPFields<Nsd,ADNumber> fields(N_FIELDS_, n_q);
     evaluate_fields<ADNumber>(fe_values, dof_values_ad, fields);
 
+    //Step 4: compute the element residual as AD numbers
+    std::vector<ADNumber> residual_ad(dofs_per_cell, ADNumber(0.0)); //Creates the output: a vector with one entry per local DoF (8), each an AD number set to zero.
+    element_residual<ADNumber>(fe_values, fields, residual_ad);
 }

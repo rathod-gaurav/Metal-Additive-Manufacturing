@@ -40,6 +40,10 @@ class PureMelt{
         void evaluate_fields(
             const FEValues<Nsd>& fe_values, const std::vector<Number>& local_dof_values, QPFields<Nsd,Number>& fields
         ) const;
+        template<typename Number>
+        void element_residual(
+            const FEValues<Nsd>& fe_values, const QPFields<Nsd,Number>& fields, std::vector<Number>& Rlocal
+        )
         void solve();
 
         Triangulation<Nsd> triangulation;

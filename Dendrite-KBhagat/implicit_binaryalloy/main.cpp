@@ -66,9 +66,25 @@ int main(){
     seeds = generate_random_seeds<Nsd>(Nseeds, x_ll, x_ul);
 
     //code here - for constitutive model parameters, if any
-    // ConstitutiveModel model(//params here
-        
-    // );
+    const double D_l = 2.4*1e-9; //diffusivity of solute in liquid 
+    const double D_s = 1.15*1e-12; //diffusivity of solute in solid
+    const double k = 0.14; //partition coefficient
+    const double eps4 = 0.01; //anisotropy strength
+    const double Gamma_g = 2.36*1e-7; //gibbs-thomson coefficient
+    const double m_l = -3.5; //liquidus slope
+    const double c0 = 4.0; //initial solute concentration
+    const double G = 3700; //thermal gradient
+    const double Vp = 1.35*1e-5; //pulling velocity
+    const double lambda0 = 1.058*1e-6; //interface thickness
+    const double a1 = 0.8839; //model constant 1
+    const double a2 = 0.6267; //model constant 2
+
+    ConstitutiveModel model(//params here
+        D_l, D_s, k,
+        eps4, Gamma_g, m_l, c0, 
+        G, Vp, 
+        lambda0, a1, a2
+    );
 
     OutputWriter<Nsd,BfOrder> output_writer("output");
 
@@ -76,7 +92,7 @@ int main(){
         x_ll, x_ul, n_elements, quadOrder,
         TEMP, PHI, N_FIELDS, undercooling, seeds,
         NT, dt, N_NR, epsilon_NR,
-        // model, 
+        model, 
         output_writer
     );
 

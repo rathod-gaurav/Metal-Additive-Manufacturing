@@ -3,7 +3,7 @@
 #include "OutputWriter.hpp"
 #include "QPFields.hpp"
 #include "InitialConditions.hpp"
-// #include "ConstitutiveModel.hpp"
+#include "ConstitutiveModel.hpp"
 
 template<unsigned int Nsd, unsigned int BfOrder>
 class BinaryAlloy{
@@ -13,7 +13,7 @@ class BinaryAlloy{
             const unsigned int TEMP, const unsigned int PHI, const unsigned int N_FIELDS, 
             const double undercooling, const std::vector<NucleationSeed<Nsd>>& seeds, //initial conditions
             const unsigned int NT, const double dt, const unsigned int N_NR, const double epsilon_NR, //newton solver
-            // const ConstitutiveModel& model, 
+            const ConstitutiveModel& model, 
             OutputWriter<Nsd,BfOrder>& output_writer
         );
         void run();
@@ -31,7 +31,7 @@ class BinaryAlloy{
         const double dt_;
         const unsigned int N_NR_;
         const double epsilon_NR_;
-        // const ConstitutiveModel& model_;
+        const ConstitutiveModel& model_;
         OutputWriter<Nsd,BfOrder>& output_writer_;
 
         void make_grid();

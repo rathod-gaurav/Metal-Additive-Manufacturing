@@ -1,5 +1,7 @@
 // Binary Alloy dendrite evolution (Implicit]) - KBhagat 2023
 
+#include <random>
+
 #include <deal.II/grid/tria.h> //triangulation
 #include <deal.II/dofs/dof_handler.h> //enumeration of degrees of freedom
 #include <deal.II/dofs/dof_tools.h>
@@ -31,6 +33,7 @@
 #include <cmath>
 
 using namespace dealii;
+#include "InitialConditions.hpp"
 #include "PureMelt.hpp"
 #include "ConstitutiveModel.hpp"
 #include "OutputWriter.hpp"
@@ -56,11 +59,11 @@ int main(){
     static constexpr unsigned int PHI = 1; //phi : phase field order parameter
     static constexpr unsigned int N_FIELDS = 2; //total two fields in this problem
 
-    //Initial conditions
+    //Initial conditions - randomly distributed nucleation seeds in the domain
     const double undercooling = -0.65;
-    Point<Nsd> seed_center; 
-    seed_center[0] = 0.0; seed_center[1] = 0.0; //seed_center[2] = 0.0;
-    const double seed_radius = 5.0;
+    const unsigned int Nseeds = 3; //number of nucleation seeds
+    std::vector<NucleationSeed<Nsd>> seeds;
+    seeds = generate_random_seeds<Nsd>(Nseeds, x_ll, x_ul);
 
     //code here - for constitutive model parameters, if any
     // ConstitutiveModel model(//params here
@@ -71,7 +74,7 @@ int main(){
 
     PureMelt<Nsd,BfOrder> problem(
         x_ll, x_ul, n_elements, quadOrder,
-        TEMP, PHI, N_FIELDS, undercooling, seed_center, seed_radius,
+        TEMP, PHI, N_FIELDS, undercooling, seeds,
         NT, dt, N_NR, epsilon_NR,
         // model, 
         output_writer

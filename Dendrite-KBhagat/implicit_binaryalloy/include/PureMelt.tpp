@@ -4,14 +4,14 @@ template<unsigned int Nsd, unsigned int BfOrder>
 PureMelt<Nsd,BfOrder>::PureMelt(
     const double x_ll, const double x_ul, const unsigned int n_elements, const unsigned int quadOrder,
     const unsigned int TEMP, const unsigned int PHI, const unsigned int N_FIELDS, 
-    const double undercooling, Point<Nsd> seed_center, const double seed_radius,
+    const double undercooling, const std::vector<NucleationSeed<Nsd>>& seeds,
     const unsigned int NT, const double dt, const unsigned int N_NR, const double epsilon_NR,
     // const ConstitutiveModel& model, 
     OutputWriter<Nsd,BfOrder>& output_writer
 ) :
     x_ll_(x_ll), x_ul_(x_ul), n_elements_(n_elements), quadOrder_(quadOrder),
     TEMP_(TEMP), PHI_(PHI), N_FIELDS_(N_FIELDS), 
-    undercooling_(undercooling), seed_center_(seed_center), seed_radius_(seed_radius),
+    undercooling_(undercooling), seeds_(seeds),
     NT_(NT), dt_(dt), N_NR_(N_NR), epsilon_NR_(epsilon_NR),
     // model_(model),
     output_writer_(output_writer),

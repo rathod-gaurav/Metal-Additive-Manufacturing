@@ -2,7 +2,7 @@
 
 #include "OutputWriter.hpp"
 #include "QPFields.hpp"
-
+#include "InitialConditions.hpp"
 // #include "ConstitutiveModel.hpp"
 
 template<unsigned int Nsd, unsigned int BfOrder>
@@ -11,7 +11,7 @@ class PureMelt{
         PureMelt(
             const double x_ll, const double x_ul, const unsigned int n_elements, const unsigned int quadOrder, //mesh
             const unsigned int TEMP, const unsigned int PHI, const unsigned int N_FIELDS, 
-            const double undercooling, Point<Nsd> seed_center, const double seed_radius, //initial conditions
+            const double undercooling, const std::vector<NucleationSeed<Nsd>>& seeds, //initial conditions
             const unsigned int NT, const double dt, const unsigned int N_NR, const double epsilon_NR, //newton solver
             // const ConstitutiveModel& model, 
             OutputWriter<Nsd,BfOrder>& output_writer
@@ -26,8 +26,7 @@ class PureMelt{
         const unsigned int PHI_;
         const unsigned int N_FIELDS_;
         const double undercooling_;
-        Point<Nsd> seed_center_;
-        const double seed_radius_;
+        const std::vector<NucleationSeed<Nsd>> seeds_;
         const unsigned int NT_;
         const double dt_;
         const unsigned int N_NR_;

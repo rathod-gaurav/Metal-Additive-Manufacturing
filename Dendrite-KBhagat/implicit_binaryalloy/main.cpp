@@ -41,13 +41,13 @@ int main(){
     const unsigned int quadOrder = BfOrder + 1;
 
     //Mesh
-    const double x_ll = -250.0;
-    const double x_ul = 250.0;
-    const unsigned int n_elements = 250; //number of elements per side
+    const double x_ll = -300.0;
+    const double x_ul = 300.0;
+    const unsigned int n_elements = 500; //number of elements per side
 
     //NR parameters
     const unsigned int NT = 100; //total number of timesteps
-    const double dt = 0.01; //timestep size
+    const double dt = 0.005; //timestep size
     const unsigned int N_NR = 10; //total number of newton iterates per timestep
     const double epsilon_NR = 1e-6; //NR convergence tolerance
 
@@ -63,9 +63,9 @@ int main(){
     const double seed_radius = 5.0;
 
     //code here - for constitutive model parameters, if any
-    ConstitutiveModel model(//params here
+    // ConstitutiveModel model(//params here
         
-    );
+    // );
 
     OutputWriter<Nsd,BfOrder> output_writer("output");
 
@@ -73,7 +73,8 @@ int main(){
         x_ll, x_ul, n_elements, quadOrder,
         TEMP, PHI, N_FIELDS, undercooling, seed_center, seed_radius,
         NT, dt, N_NR, epsilon_NR,
-        model, output_writer
+        // model, 
+        output_writer
     );
 
     problem.run();

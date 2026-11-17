@@ -34,7 +34,7 @@
 
 using namespace dealii;
 #include "InitialConditions.hpp"
-#include "PureMelt.hpp"
+#include "BinaryAlloy.hpp"
 #include "ConstitutiveModel.hpp"
 #include "OutputWriter.hpp"
 
@@ -72,7 +72,7 @@ int main(){
 
     OutputWriter<Nsd,BfOrder> output_writer("output");
 
-    PureMelt<Nsd,BfOrder> problem(
+    BinaryAlloy<Nsd,BfOrder> problem(
         x_ll, x_ul, n_elements, quadOrder,
         TEMP, PHI, N_FIELDS, undercooling, seeds,
         NT, dt, N_NR, epsilon_NR,

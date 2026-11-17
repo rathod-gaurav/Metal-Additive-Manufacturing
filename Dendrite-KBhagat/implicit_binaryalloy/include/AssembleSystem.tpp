@@ -3,7 +3,7 @@
 // #include "ComputeElement.tpp"
 
 template<unsigned int Nsd, unsigned int BfOrder>
-void PureMelt<Nsd,BfOrder>::assemble_system(){
+void BinaryAlloy<Nsd,BfOrder>::assemble_system(){
     NR_jacobian = 0.0;
     NR_residual = 0.0;
 

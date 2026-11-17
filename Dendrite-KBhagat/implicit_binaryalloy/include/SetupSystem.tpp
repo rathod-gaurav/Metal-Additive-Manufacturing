@@ -1,7 +1,7 @@
 #pragma once
 
 template<unsigned int Nsd, unsigned int BfOrder>
-void PureMelt<Nsd,BfOrder>::setup_system(){
+void BinaryAlloy<Nsd,BfOrder>::setup_system(){
     dof_handler.distribute_dofs(fe);
     Nt = dof_handler.n_dofs();
     std::cout << "DoFs per vertex: " << fe.n_dofs_per_vertex() << std::endl;

@@ -4,7 +4,7 @@
 // #include "VerifyJacobian.tpp"
 
 template <unsigned int Nsd, unsigned int BfOrder>
-void PureMelt<Nsd,BfOrder>::solve(){
+void BinaryAlloy<Nsd,BfOrder>::solve(){
 
     std::cout << "Initiating solver..." << std::endl;
 

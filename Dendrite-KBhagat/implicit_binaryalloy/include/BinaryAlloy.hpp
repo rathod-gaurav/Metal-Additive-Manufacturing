@@ -6,9 +6,9 @@
 // #include "ConstitutiveModel.hpp"
 
 template<unsigned int Nsd, unsigned int BfOrder>
-class PureMelt{
+class BinaryAlloy{
     public:
-        PureMelt(
+        BinaryAlloy(
             const double x_ll, const double x_ul, const unsigned int n_elements, const unsigned int quadOrder, //mesh
             const unsigned int TEMP, const unsigned int PHI, const unsigned int N_FIELDS, 
             const double undercooling, const std::vector<NucleationSeed<Nsd>>& seeds, //initial conditions
@@ -66,7 +66,7 @@ class PureMelt{
 
 };
 
-#include "PureMelt.tpp"
+#include "BinaryAlloy.tpp"
 #include "MakeGrid.tpp"
 #include "SetupSystem.tpp"
 #include "Solver.tpp"

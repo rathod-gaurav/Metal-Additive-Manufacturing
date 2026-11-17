@@ -1,7 +1,7 @@
 #pragma once
 
 template<unsigned int Nsd, unsigned int BfOrder>
-PureMelt<Nsd,BfOrder>::PureMelt(
+BinaryAlloy<Nsd,BfOrder>::BinaryAlloy(
     const double x_ll, const double x_ul, const unsigned int n_elements, const unsigned int quadOrder,
     const unsigned int TEMP, const unsigned int PHI, const unsigned int N_FIELDS, 
     const double undercooling, const std::vector<NucleationSeed<Nsd>>& seeds,
@@ -24,7 +24,7 @@ PureMelt<Nsd,BfOrder>::PureMelt(
 }
 
 template<unsigned int Nsd, unsigned int BfOrder>
-void PureMelt<Nsd,BfOrder>::run(){
+void BinaryAlloy<Nsd,BfOrder>::run(){
     make_grid();
     setup_system();
     solve();

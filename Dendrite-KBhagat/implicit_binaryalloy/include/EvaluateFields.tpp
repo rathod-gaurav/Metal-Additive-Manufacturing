@@ -2,7 +2,7 @@
 
 template<unsigned int Nsd, unsigned int BfOrder>
 template<typename Number>
-void PureMelt<Nsd,BfOrder>::evaluate_fields(
+void BinaryAlloy<Nsd,BfOrder>::evaluate_fields(
     const FEValues<Nsd>& fe_values, const std::vector<Number>& local_dof_values, QPFields<Nsd,Number>& fields
 ) const {
     for(unsigned int f = 0; f < N_FIELDS_; f++){

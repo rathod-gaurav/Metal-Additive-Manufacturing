@@ -5,7 +5,7 @@
 #include "ElementResidual.tpp"
 
 template<unsigned int Nsd, unsigned int BfOrder>
-void PureMelt<Nsd,BfOrder>::compute_element(
+void BinaryAlloy<Nsd,BfOrder>::compute_element(
     const typename DoFHandler<Nsd>::active_cell_iterator& elem, FEValues<Nsd>& fe_values, 
     FullMatrix<double>& Jlocal, Vector<double>& Rlocal,
     const std::vector<types::global_dof_index>& local_dof_indices

@@ -19,7 +19,7 @@ class ConstitutiveModel{
         double partition_coefficient() const {return k_;}
         double lambda0() const {return lambda0_;}
         double pulling_speed_non_dim() const {return (Vp_*tau0())/lambda0_;}
-        double thermal_length_non_dim() const {return (abs(ml_)*(1-k_)*c0_)/(k_*G_*lambda0_);}
+        double thermal_length_non_dim() const {return (abs(m_l_)*(1-k_)*c0_)/(k_*G_*lambda0_);}
 
         //four-fold anisotropy a_s(q) = (1-3eps4) + 4 eps4 (qx^4+qy^4)/|q|^4, q = grad phi
         //returns a_s and d a_s / d q

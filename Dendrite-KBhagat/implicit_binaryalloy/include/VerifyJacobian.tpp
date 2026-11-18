@@ -24,10 +24,10 @@ void BinaryAlloy<Nsd,BfOrder>::verify_jacobian(const unsigned int n_elems_to_che
 
     //residual of one element with plain doubles
     auto residual_double = [&](const std::vector<double>& d, std::vector<double>& R){
-        QPFields<Nsd,double> fields(N_FIELDS, n_q);
+        QPFields<Nsd,double> fields(N_FIELDS_, n_q);
         evaluate_fields<double>(fe_values, d, fields);
         std::fill(R.begin(), R.end(), 0.0);
-        element_residual<double>(fe_values, fields, R);
+        element_residual<double>(dt_, fe_values, fields, R);
     };
 
     //check elements that cut the interface (where all terms are active)
@@ -35,11 +35,12 @@ void BinaryAlloy<Nsd,BfOrder>::verify_jacobian(const unsigned int n_elems_to_che
     double worst = 0.0;
     for(const typename DoFHandler<Nsd>::active_cell_iterator &elem : dof_handler.active_cell_iterators()){
         if(checked == n_elems_to_check){ break; }
+        const double seed_radius_ = 5.0;
         if(std::abs(elem->center().norm() - seed_radius_) > 1.0){ continue; }
 
         elem->get_dof_indices(local_dof_indices);
         Jlocal = 0.0; Rlocal = 0.0;
-        compute_element_ad(elem, fe_values, Jlocal, Rlocal, local_dof_indices); //also reinits fe_values
+        compute_element(dt_, elem, fe_values, Jlocal, Rlocal, local_dof_indices); //also reinits fe_values
 
         std::vector<double> d(dofs_per_cell), R0(dofs_per_cell), R1(dofs_per_cell);
         for(unsigned int i = 0 ; i < dofs_per_cell ; i++){ d[i] = sol_k(local_dof_indices[i]); }

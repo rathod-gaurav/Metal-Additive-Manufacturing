@@ -41,7 +41,7 @@ class InitialConditions : public Function<Nsd>{ //this class is the function in 
 
         double value(const Point<Nsd>& p, const unsigned int component) const override{
             if(component == 0){ //component 0 is temperature u
-                return c0_; 
+                return 0.0; 
             }
             // For component 1 (phase field phi), find the distance to the nearest seed
             double min_r = 1e20;

@@ -22,7 +22,7 @@ void BinaryAlloy<Nsd,BfOrder>::solve(){
         bool converged = false;
         for(unsigned int k = 0 ; k < N_NR_ ; k++){
 
-            assemble_system(); //uses sol_k (and sol_n) -> NR_jacobian = dR/dd, NR_residual = R
+            assemble_system(t); //uses sol_k (and sol_n) -> NR_jacobian = dR/dd, NR_residual = R
 
             double error = NR_residual.l2_norm();
             std::cout << "timestep: " << timestep << " | iteration: " << k << " | residual: " << error << std::endl;

@@ -6,6 +6,7 @@
 
 template<unsigned int Nsd, unsigned int BfOrder>
 void BinaryAlloy<Nsd,BfOrder>::compute_element(
+    double t,
     const typename DoFHandler<Nsd>::active_cell_iterator& elem, FEValues<Nsd>& fe_values, 
     FullMatrix<double>& Jlocal, Vector<double>& Rlocal,
     const std::vector<types::global_dof_index>& local_dof_indices
@@ -29,7 +30,7 @@ void BinaryAlloy<Nsd,BfOrder>::compute_element(
 
     //Step 4: compute the element residual as AD numbers
     std::vector<ADNumber> residual_ad(dofs_per_cell, ADNumber(0.0)); //Creates the output: a vector with one entry per local DoF (8), each an AD number set to zero.
-    element_residual<ADNumber>(fe_values, fields, residual_ad);
+    element_residual<ADNumber>(t, fe_values, fields, residual_ad);
 
     //Step 5. read out R (values) and J (derivatives)
     ad_helper.register_residual_vector(residual_ad);

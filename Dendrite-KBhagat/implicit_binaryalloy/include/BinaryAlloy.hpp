@@ -36,8 +36,9 @@ class BinaryAlloy{
 
         void make_grid();
         void setup_system();
-        void assemble_system();
+        void assemble_system(double t);
         void compute_element(
+            double t,
             const typename DoFHandler<Nsd>::active_cell_iterator& elem, FEValues<Nsd>& fe_values, 
             FullMatrix<double>& Jlocal, Vector<double>& Rlocal,
             const std::vector<types::global_dof_index>& local_dof_indices
@@ -48,7 +49,7 @@ class BinaryAlloy{
         ) const;
         template<typename Number>
         void element_residual(
-            const FEValues<Nsd>& fe_values, const QPFields<Nsd,Number>& fields, std::vector<Number>& Rlocal
+            double t, const FEValues<Nsd>& fe_values, const QPFields<Nsd,Number>& fields, std::vector<Number>& Rlocal
         ) const;
         void solve();
 

@@ -64,7 +64,7 @@ int main(){
     const unsigned int Nseeds = 1; //number of nucleation seeds
     std::vector<NucleationSeed<Nsd>> seeds(Nseeds);
     // seeds = generate_random_seeds<Nsd>(Nseeds, x_ll, x_ul);
-    seeds[0].center = Point<Nsd>(10, x_ll); //seed at the center of the domain
+    seeds[0].center = Point<Nsd>(0.0, x_ll+10.0); //seed at the center of the domain
     seeds[0].radius = 5.0; //seed radius
     
 

@@ -13,7 +13,7 @@
 template <unsigned int Nsd, unsigned int BfOrder>
 void BinaryAlloy<Nsd,BfOrder>::verify_jacobian(const unsigned int n_elems_to_check){
     const QGauss<Nsd> quadrature_formula(quadOrder_);
-    FEValues<Nsd> fe_values(fe, quadrature_formula, update_values | update_gradients | update_JxW_values);
+    FEValues<Nsd> fe_values(fe, quadrature_formula, update_values | update_gradients | update_quadrature_points | update_JxW_values);
 
     const unsigned int dofs_per_cell = fe.n_dofs_per_cell();
     const unsigned int n_q = quadrature_formula.size();

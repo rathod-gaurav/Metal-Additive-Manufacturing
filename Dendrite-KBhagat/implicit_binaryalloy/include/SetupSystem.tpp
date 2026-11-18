@@ -18,6 +18,6 @@ void BinaryAlloy<Nsd,BfOrder>::setup_system(){
     sol_n.reinit(Nt);
     NR_update.reinit(Nt);
 
-    VectorTools::interpolate(dof_handler, InitialConditions<Nsd>(undercooling_, seeds_), sol_n);
+    VectorTools::interpolate(dof_handler, InitialConditions<Nsd>(c0_, seeds_), sol_n);
     sol_k = sol_n; //guess for Newton's first iteration
 }

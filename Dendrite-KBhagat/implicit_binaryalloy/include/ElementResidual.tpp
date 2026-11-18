@@ -7,7 +7,6 @@ void BinaryAlloy<Nsd,BfOrder>::element_residual(
 ) const {
     const double D_ = model_.diffusivity_non_dim();
     const double k = model_.partition_coefficient();
-    const double lambda0 = model_.lambda0();
     const double v_ = model_.pulling_speed_non_dim();
     const double invlT_ = model_.inv_thermal_length_non_dim();
     const double xi_ = model_.xi();

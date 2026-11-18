@@ -49,9 +49,9 @@ int main(){
     const unsigned int n_elements = 500; //number of elements per side
 
     //NR parameters
-    const unsigned int NT = 100; //total number of timesteps
-    const double dt = 0.005; //timestep size
-    const unsigned int N_NR = 10; //total number of newton iterates per timestep
+    const unsigned int NT = 100000; //total number of timesteps
+    const double dt = 0.0005; //timestep size
+    const unsigned int N_NR = 20; //total number of newton iterates per timestep
     const double epsilon_NR = 1e-6; //NR convergence tolerance
 
     //Field variables of the problem (component index inside FESystem)
@@ -60,7 +60,7 @@ int main(){
     static constexpr unsigned int N_FIELDS = 2; //total two fields in this problem
 
     //Initial conditions - randomly distributed nucleation seeds in the domain
-    const unsigned int Nseeds = 3; //number of nucleation seeds
+    const unsigned int Nseeds = 5; //number of nucleation seeds
     std::vector<NucleationSeed<Nsd>> seeds;
     seeds = generate_random_seeds<Nsd>(Nseeds, x_ll, x_ul);
 

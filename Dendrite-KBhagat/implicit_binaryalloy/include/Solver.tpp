@@ -49,9 +49,9 @@ void BinaryAlloy<Nsd,BfOrder>::solve(){
 
         sol_n = sol_k; //accept the new time level
 
-        // if(timestep % 10 == 0){
+        if(timestep % 100 == 0){
             output_writer_.write_vtu_and_pvd(dof_handler, sol_n, {"u", "phi"}, timestep, pvd_output);
-        // }
+        }
     }
 
     output_writer_.finish_pvd(pvd_output); //finishes pvd file with footer

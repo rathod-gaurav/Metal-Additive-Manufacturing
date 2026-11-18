@@ -19,6 +19,22 @@ class ConstitutiveModel{
         double partition_coefficient() const {return k_;}
         double lambda0() const {return lambda0_;}
 
+        //four-fold anisotropy a_s(q) = (1-3eps4) + 4 eps4 (qx^4+qy^4)/|q|^4, q = grad phi
+        //returns a_s and d a_s / d q
+        template <int dim, typename T>
+        void anisotropy(const Tensor<1,dim,T>& q, T& a, Tensor<1,dim,T>& da_dq) const{
+            static_assert(dim == 2, "anisotropy() is written for 2D");
+            const double delta = 1e-12; //regularisation where grad phi = 0 (bulk)
+            const T qx = q[0], qy = q[1];
+            const T q2 = qx*qx + qy*qy + delta;
+            const T q4 = q2*q2;
+            const T q6 = q4*q2;
+            const T S  = (qx*qx*qx*qx + qy*qy*qy*qy)/q4;
+            a = (1.0 - 3.0*eps4_) + 4.0*eps4_*S;
+            da_dq[0] = 4.0*eps4_*(4.0*qx*qy*qy*(qx*qx - qy*qy)/q6);
+            da_dq[1] = 4.0*eps4_*(4.0*qx*qx*qy*(qy*qy - qx*qx)/q6);
+        }
+
     private:
         double D_l_; double D_s_; double k_;
         double eps4_; double Gamma_g_; double m_l_; double c0_;

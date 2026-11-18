@@ -4,7 +4,7 @@ template<unsigned int Nsd, unsigned int BfOrder>
 BinaryAlloy<Nsd,BfOrder>::BinaryAlloy(
     const double x_ll, const double x_ul, const unsigned int n_elements, const unsigned int quadOrder,
     const unsigned int TEMP, const unsigned int PHI, const unsigned int N_FIELDS, 
-    const double co, const std::vector<NucleationSeed<Nsd>>& seeds,
+    const double c0, const std::vector<NucleationSeed<Nsd>>& seeds,
     const unsigned int NT, const double dt, const unsigned int N_NR, const double epsilon_NR,
     const ConstitutiveModel& model, 
     OutputWriter<Nsd,BfOrder>& output_writer

@@ -60,7 +60,6 @@ int main(){
     static constexpr unsigned int N_FIELDS = 2; //total two fields in this problem
 
     //Initial conditions - randomly distributed nucleation seeds in the domain
-    const double undercooling = -0.65;
     const unsigned int Nseeds = 3; //number of nucleation seeds
     std::vector<NucleationSeed<Nsd>> seeds;
     seeds = generate_random_seeds<Nsd>(Nseeds, x_ll, x_ul);

@@ -61,11 +61,19 @@ int main(){
 
     //Initial conditions - randomly distributed nucleation seeds in the domain
     const double supersaturation = -1.0;
-    const unsigned int Nseeds = 1; //number of nucleation seeds
+    const unsigned int Nseeds = n_elements; //number of nucleation seeds
     std::vector<NucleationSeed<Nsd>> seeds(Nseeds);
+    //for multiple equiaxed case
     // seeds = generate_random_seeds<Nsd>(Nseeds, x_ll, x_ul);
-    seeds[0].center = Point<Nsd>(0.0, x_ll+10.0); //seed at the center of the domain
-    seeds[0].radius = 5.0; //seed radius
+    //for single columnar case
+    // seeds[0].center = Point<Nsd>(0.0, x_ll+10.0); //seed at the bottom of the domain
+    // seeds[0].radius = 5.0; //seed radius
+    //for multiple columnar case
+    for(unsigned int i = 0 ; i < Nseeds ; i++){
+        double x_pos = i*((x_ul - x_ll)/(Nseeds-1)) + x_ll; //evenly spaced seeds along the bottom of the domain
+        seeds[i].center = Point<Nsd>(x_pos, x_ll + 5.0); //seed at the bottom of the domain
+        seeds[i].radius = 5.0; //seed radius
+    }
     
 
     //code here - for constitutive model parameters, if any

@@ -31,11 +31,11 @@ void BinaryAlloy<Nsd,BfOrder>::element_residual(
         const Number dphidt = (phi - phi_n)/dt_;
 
         //some required coefficients that multiply with dudt and dphidt
-        const Number coef1 = ((1.0 + k)/2.0) + ((1.0 - k)/2.0)*phi;
+        const Number coef1 = ((1.0 + k)/2.0) - ((1.0 - k)/2.0)*phi;
         const Number coef2 = 1.0 + (1.0 - k)*uc;
 
         //uc flux : the grad_uc term in the weak form of the temperature equation
-        const Tensor<1,Nsd,Number> flux_uc = grad_uc + (grad_phi/grad_phi.norm())*0.25*sqrt(2.0)*lambda0*coef2*dphidt;
+        const Tensor<1,Nsd,Number> flux_uc = (grad_phi/grad_phi.norm())*0.25*sqrt(2.0)*coef2*dphidt; //flux due to anti trapping current
         //phi flux : all grad_phi terms in the weak form of the phase field equation
         const Number as2 = as*as;
         const Number grad_phi2 = grad_phi*grad_phi;
@@ -61,7 +61,7 @@ void BinaryAlloy<Nsd,BfOrder>::element_residual(
             const Tensor<1,Nsd>   gradN_phi = fe_values[field_ext[PHI_]].gradient(i,q);
 
             //Eq. 6a : temperature
-            const Number R_uc = N_uc*(coef1*dudt - coef2*0.5*dphidt) + gradN_uc*flux_uc*D_*(0.5*(1.0-phi));
+            const Number R_uc = N_uc*(coef1*dudt - coef2*0.5*dphidt) + gradN_uc*grad_uc*D_*(0.5*(1.0-phi)) + gradN_uc*flux_uc;
             //Eq. 6b : phase field
             const Number R_phi = N_phi*(coef4*as2*dphidt - dfdphi) + gradN_phi*flux_phi;
 

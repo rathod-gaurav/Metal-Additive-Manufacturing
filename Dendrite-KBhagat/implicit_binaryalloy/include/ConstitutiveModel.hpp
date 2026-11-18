@@ -13,13 +13,14 @@ class ConstitutiveModel{
             lambda0_(lambda0), a1_(a1), a2_(a2)
         {}
 
-        double xi() const {return a1_;}
+        double d0 = (k_*Gamma_g_)/(m_l_*(k_-1)*c0_);
+        double xi() const {return (a1_*lambda0_)/d0;}
         double tau0() const {return (a1_*a2_*xi()*lambda0_*lambda0_)/D_l_;}
         double diffusivity_non_dim() const {return (D_l_*tau0())/(lambda0_*lambda0_);}
         double partition_coefficient() const {return k_;}
         double lambda0() const {return lambda0_;}
         double pulling_speed_non_dim() const {return (Vp_*tau0())/lambda0_;}
-        double inv_thermal_length_non_dim() const {return (k_*G_*lambda0_)/(abs(m_l_)*(1-k_)*c0_);}
+        double inv_thermal_length_non_dim() const {return (k_*G_*lambda0_)/(std::abs(m_l_)*(1-k_)*c0_);}
 
         //four-fold anisotropy a_s(q) = (1-3eps4) + 4 eps4 (qx^4+qy^4)/|q|^4, q = grad phi
         //returns a_s and d a_s / d q

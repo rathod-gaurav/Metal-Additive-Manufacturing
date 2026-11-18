@@ -55,7 +55,7 @@ int main(){
     const double epsilon_NR = 1e-6; //NR convergence tolerance
 
     //Field variables of the problem (component index inside FESystem)
-    static constexpr unsigned int TEMP = 0; //u : scaled temperature
+    static constexpr unsigned int UC = 0; //uc : composition
     static constexpr unsigned int PHI = 1; //phi : phase field order parameter
     static constexpr unsigned int N_FIELDS = 2; //total two fields in this problem
 
@@ -89,7 +89,7 @@ int main(){
 
     BinaryAlloy<Nsd,BfOrder> problem(
         x_ll, x_ul, n_elements, quadOrder,
-        TEMP, PHI, N_FIELDS, c0, seeds,
+        UC, PHI, N_FIELDS, c0, seeds,
         NT, dt, N_NR, epsilon_NR,
         model, 
         output_writer

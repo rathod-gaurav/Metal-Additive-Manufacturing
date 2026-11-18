@@ -60,9 +60,13 @@ int main(){
     static constexpr unsigned int N_FIELDS = 2; //total two fields in this problem
 
     //Initial conditions - randomly distributed nucleation seeds in the domain
-    const unsigned int Nseeds = 5; //number of nucleation seeds
-    std::vector<NucleationSeed<Nsd>> seeds;
-    seeds = generate_random_seeds<Nsd>(Nseeds, x_ll, x_ul);
+    const double supersaturation = -1.0;
+    const unsigned int Nseeds = 1; //number of nucleation seeds
+    std::vector<NucleationSeed<Nsd>> seeds(Nseeds);
+    // seeds = generate_random_seeds<Nsd>(Nseeds, x_ll, x_ul);
+    seeds[0].center = Point<Nsd>(10, x_ll); //seed at the center of the domain
+    seeds[0].radius = 5.0; //seed radius
+    
 
     //code here - for constitutive model parameters, if any
     const double D_l = 2.4*1e-9; //diffusivity of solute in liquid 
@@ -72,8 +76,8 @@ int main(){
     const double Gamma_g = 2.36*1e-7; //gibbs-thomson coefficient
     const double m_l = -3.5; //liquidus slope
     const double c0 = 4.0; //initial solute concentration
-    const double G = 0.0; //thermal gradient
-    const double Vp = 0.0; //pulling velocity
+    const double G = 3700.0; //thermal gradient
+    const double Vp = 1.35*1e-5; //pulling velocity
     const double lambda0 = 1.058*1e-6; //interface thickness
     const double a1 = 0.8839; //model constant 1
     const double a2 = 0.6267; //model constant 2
@@ -89,7 +93,7 @@ int main(){
 
     BinaryAlloy<Nsd,BfOrder> problem(
         x_ll, x_ul, n_elements, quadOrder,
-        UC, PHI, N_FIELDS, c0, seeds,
+        UC, PHI, N_FIELDS, supersaturation, seeds,
         NT, dt, N_NR, epsilon_NR,
         model, 
         output_writer

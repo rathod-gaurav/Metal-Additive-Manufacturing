@@ -11,7 +11,7 @@ class BinaryAlloy{
         BinaryAlloy(
             const double x_ll, const double x_ul, const unsigned int n_elements, const unsigned int quadOrder, //mesh
             const unsigned int UC, const unsigned int PHI, const unsigned int N_FIELDS, 
-            const double c0, const std::vector<NucleationSeed<Nsd>>& seeds, //initial conditions
+            const double supersaturation, const std::vector<NucleationSeed<Nsd>>& seeds, //initial conditions
             const unsigned int NT, const double dt, const unsigned int N_NR, const double epsilon_NR, //newton solver
             const ConstitutiveModel& model, 
             OutputWriter<Nsd,BfOrder>& output_writer
@@ -25,7 +25,7 @@ class BinaryAlloy{
         const unsigned int UC_;
         const unsigned int PHI_;
         const unsigned int N_FIELDS_;
-        const double c0_;
+        const double supersaturation_;
         const std::vector<NucleationSeed<Nsd>> seeds_;
         const unsigned int NT_;
         const double dt_;

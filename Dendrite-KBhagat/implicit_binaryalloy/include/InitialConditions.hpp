@@ -30,18 +30,18 @@ template<unsigned int Nsd>
 class InitialConditions : public Function<Nsd>{ //this class is the function in dealii's sense
     public: //everything public in function stays public in our class
         //class constructor
-        InitialConditions(const double c0,
+        InitialConditions(const double supersaturation,
                           const std::vector<NucleationSeed<Nsd>>& seeds,
                           const double lambda0 = 1.0)//we fix lambda0 specifically for the initial condition seed here
         : Function<Nsd>(2), //2 for two fields - temp u and phi
-          c0_(c0),
+          supersaturation_(supersaturation),
           seeds_(seeds),
           lambda0_(lambda0)
         {}
 
         double value(const Point<Nsd>& p, const unsigned int component) const override{
             if(component == 0){ //component 0 is composition uc
-                return -1.0; 
+                return supersaturation_; //initialize composition with supersaturation
             }
             // For component 1 (phase field phi), find the distance to the nearest seed
             double min_r = 1e20;
@@ -58,5 +58,5 @@ class InitialConditions : public Function<Nsd>{ //this class is the function in 
         }
 
     private:
-        const double c0_; std::vector<NucleationSeed<Nsd>> seeds_; const double lambda0_;
+        const double supersaturation_; std::vector<NucleationSeed<Nsd>> seeds_; const double lambda0_;
 };

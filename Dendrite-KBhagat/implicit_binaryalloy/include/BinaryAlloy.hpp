@@ -43,11 +43,11 @@ class BinaryAlloy{
             FullMatrix<double>& Jlocal, Vector<double>& Rlocal,
             const std::vector<types::global_dof_index>& local_dof_indices
         );
-        UClate<typename Number>
+        template<typename Number>
         void evaluate_fields(
             const FEValues<Nsd>& fe_values, const std::vector<Number>& local_dof_values, QPFields<Nsd,Number>& fields
         ) const;
-        UClate<typename Number>
+        template<typename Number>
         void element_residual(
             double t, const FEValues<Nsd>& fe_values, const QPFields<Nsd,Number>& fields, std::vector<Number>& Rlocal
         ) const;

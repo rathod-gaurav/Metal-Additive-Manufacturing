@@ -23,7 +23,7 @@ BinaryAlloy<Nsd,BfOrder>::BinaryAlloy(
     }
 }
 
-UClate<unsigned int Nsd, unsigned int BfOrder>
+template<unsigned int Nsd, unsigned int BfOrder>
 void BinaryAlloy<Nsd,BfOrder>::run(){
     make_grid();
     setup_system();

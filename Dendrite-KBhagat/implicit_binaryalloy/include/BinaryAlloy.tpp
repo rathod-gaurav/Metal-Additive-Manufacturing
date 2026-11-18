@@ -1,6 +1,6 @@
 #pragma once
 
-UClate<unsigned int Nsd, unsigned int BfOrder>
+template<unsigned int Nsd, unsigned int BfOrder>
 BinaryAlloy<Nsd,BfOrder>::BinaryAlloy(
     const double x_ll, const double x_ul, const unsigned int n_elements, const unsigned int quadOrder,
     const unsigned int UC, const unsigned int PHI, const unsigned int N_FIELDS, 

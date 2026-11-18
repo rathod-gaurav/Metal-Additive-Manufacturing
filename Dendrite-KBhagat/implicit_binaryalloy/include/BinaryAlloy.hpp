@@ -5,7 +5,7 @@
 #include "InitialConditions.hpp"
 #include "ConstitutiveModel.hpp"
 
-UClate<unsigned int Nsd, unsigned int BfOrder>
+template<unsigned int Nsd, unsigned int BfOrder>
 class BinaryAlloy{
     public:
         BinaryAlloy(

@@ -34,11 +34,18 @@ void BinaryAlloy<Nsd,BfOrder>::element_residual(
         const Number coef1 = ((1.0 + k)/2.0) - ((1.0 - k)/2.0)*phi;
         const Number coef2 = 1.0 + (1.0 - k)*uc;
 
+        const Number grad_phi2 = grad_phi*grad_phi;
+
         //uc flux : the grad_uc term in the weak form of the temperature equation
-        const Tensor<1,Nsd,Number> flux_uc = (grad_phi/grad_phi.norm())*0.25*sqrt(2.0)*coef2*dphidt; //flux due to anti trapping current
+        Tensor<1,Nsd,Number> flux_uc; //flux due to anti trapping current
+        if(grad_phi2 > 1e-12){
+            flux_uc = (grad_phi/grad_phi.norm())*0.25*std::sqrt(2.0)*coef2*dphidt; //Jat only valid in the interface region where grad phi is non-zero
+        }
+        else{
+            flux_uc = 0; //zero in the bulk
+        }
         //phi flux : all grad_phi terms in the weak form of the phase field equation
         const Number as2 = as*as;
-        const Number grad_phi2 = grad_phi*grad_phi;
         const Tensor<1,Nsd,Number> as_dasdq = dasdq*as;
         const Tensor<1,Nsd,Number> flux_phi = grad_phi*as2 + as_dasdq*grad_phi2;
 

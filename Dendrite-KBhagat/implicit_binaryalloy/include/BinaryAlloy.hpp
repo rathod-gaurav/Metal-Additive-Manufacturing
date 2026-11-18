@@ -73,5 +73,6 @@ class BinaryAlloy{
 #include "BinaryAlloy.tpp"
 #include "MakeGrid.tpp"
 #include "SetupSystem.tpp"
+#include "VerifyJacobian.tpp"
 #include "Solver.tpp"
 

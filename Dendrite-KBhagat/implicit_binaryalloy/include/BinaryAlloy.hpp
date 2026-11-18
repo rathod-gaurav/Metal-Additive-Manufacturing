@@ -53,6 +53,9 @@ class BinaryAlloy{
         ) const;
         void solve();
 
+        //--- debugging: AD Jacobian vs finite differences ---
+        void verify_jacobian(const unsigned int n_elems_to_check);
+
         Triangulation<Nsd> triangulation;
         FESystem<Nsd> fe; //two variables per node
         DoFHandler<Nsd> dof_handler;

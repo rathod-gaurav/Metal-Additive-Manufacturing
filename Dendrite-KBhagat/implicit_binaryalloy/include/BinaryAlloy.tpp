@@ -27,5 +27,6 @@ template<unsigned int Nsd, unsigned int BfOrder>
 void BinaryAlloy<Nsd,BfOrder>::run(){
     make_grid();
     setup_system();
+    verify_jacobian(5); //check 5 elements for AD vs FD Jacobian
     solve();
 }

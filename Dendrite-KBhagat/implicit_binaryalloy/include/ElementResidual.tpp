@@ -39,7 +39,7 @@ void BinaryAlloy<Nsd,BfOrder>::element_residual(
         //phi flux : all grad_phi terms in the weak form of the phase field equation
         const Number as2 = as*as;
         const Number grad_phi2 = grad_phi*grad_phi;
-        const Number as_dasdq = as*dasdq;
+        const Number as_dasdq = dasdq*as;
         const Tensor<1,Nsd,Number> flux_phi = as2*grad_phi + grad_phi2*as_dasdq;
 
         //first integral in phi residual

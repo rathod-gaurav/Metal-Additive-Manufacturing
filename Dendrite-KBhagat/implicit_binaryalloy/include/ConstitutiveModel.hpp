@@ -14,7 +14,7 @@ class ConstitutiveModel{
         {}
 
         double d0() const {return (k_*Gamma_g_)/(m_l_*(k_-1)*c0_);}
-        double xi() const {return (a1_*lambda0_)/d0;}
+        double xi() const {return (a1_*lambda0_)/d0();}
         double tau0() const {return (a1_*a2_*xi()*lambda0_*lambda0_)/D_l_;}
         double diffusivity_non_dim() const {return (D_l_*tau0())/(lambda0_*lambda0_);}
         double partition_coefficient() const {return k_;}

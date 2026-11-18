@@ -72,8 +72,8 @@ int main(){
     const double Gamma_g = 2.36*1e-7; //gibbs-thomson coefficient
     const double m_l = -3.5; //liquidus slope
     const double c0 = 0.04; //initial solute concentration
-    const double G = 3700; //thermal gradient
-    const double Vp = 1.35*1e-5; //pulling velocity
+    const double G = 0.0; //thermal gradient
+    const double Vp = 0.0; //pulling velocity
     const double lambda0 = 1.058*1e-6; //interface thickness
     const double a1 = 0.8839; //model constant 1
     const double a2 = 0.6267; //model constant 2

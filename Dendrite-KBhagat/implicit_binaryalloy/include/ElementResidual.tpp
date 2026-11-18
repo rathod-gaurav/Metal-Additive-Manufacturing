@@ -9,7 +9,7 @@ void BinaryAlloy<Nsd,BfOrder>::element_residual(
     const double k = model_.partition_coefficient();
     const double lambda0 = model_.lambda0();
     const double v_ = model_.pulling_speed_non_dim();
-    const double lT_ = model_.thermal_length_non_dim();
+    const double invlT_ = model_.inv_thermal_length_non_dim();
     const double xi_ = model_.xi();
 
     for(const unsigned int q : fe_values.quadrature_point_indices()){
@@ -45,7 +45,7 @@ void BinaryAlloy<Nsd,BfOrder>::element_residual(
         //first integral in phi residual
         const Point<Nsd> p = fe_values.quadrature_point(q);
         const double y = p[1];
-        const double coef3 = (y - v_*t)/lT_;
+        const double coef3 = (y - v_*t)*invlT_;
         const double coef4 = 1.0 - (1.0 - k)*coef3;
         const Number coef5 = uc + coef3;
         const Number dfdphi = phi - phi*phi*phi - xi_*(1.0 - phi*phi)*(1.0 - phi*phi)*coef5;

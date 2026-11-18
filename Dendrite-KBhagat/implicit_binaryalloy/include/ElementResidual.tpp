@@ -45,8 +45,8 @@ void BinaryAlloy<Nsd,BfOrder>::element_residual(
         //first integral in phi residual
         const Point<Nsd> p = fe_values.quadrature_point(q);
         const double y = p[1];
-        const Number coef3 = (y - v_*t)/lT_;
-        const Number coef4 = 1.0 - (1.0 - k)*coef3;
+        const double coef3 = (y - v_*t)/lT_;
+        const double coef4 = 1.0 - (1.0 - k)*coef3;
         const Number coef5 = uc + coef3;
         const Number dfdphi = phi - phi*phi*phi - xi_*(1.0 - phi*phi)*(1.0 - phi*phi)*coef5;
 

@@ -52,11 +52,11 @@ int main(){
     //Mesh
     const double x_ll = -300.0;
     const double x_ul = 300.0;
-    const unsigned int n_elements = 125; //number of elements per side
+    const unsigned int n_elements = 50; //number of elements per side
 
     //NR parameters
-    const unsigned int NT = 100000; //total number of timesteps
-    const double dt = 0.0005; //timestep size
+    const unsigned int NT = 10000; //total number of timesteps
+    const double dt = 0.005; //timestep size
     const unsigned int N_NR = 20; //total number of newton iterates per timestep
     const double epsilon_NR = 1e-6; //NR convergence tolerance
 
@@ -82,7 +82,7 @@ int main(){
     // }
 
     //Adaptive Meshing parameters
-    const unsigned int max_level = 3; //maximum refinement level
+    const unsigned int max_level = 4; //maximum refinement level
     const unsigned int min_level = 0; //minimum refinement level
     const double delta_phi = 1e-3; //threshold for refinement (|phi| < 1 - delta_phi)
     const double delta_coarsen = 1e-4; //threshold for coarsening (|phi| > 1 - delta_coarsen)
@@ -95,8 +95,8 @@ int main(){
     const double Gamma_g = 2.36*1e-7; //gibbs-thomson coefficient
     const double m_l = -3.5; //liquidus slope
     const double c0 = 4.0; //initial solute concentration
-    const double G = 3700.0; //thermal gradient
-    const double Vp = 1.35*1e-5; //pulling velocity
+    const double G = 0.0; //thermal gradient
+    const double Vp = 0.0; //pulling velocity
     const double lambda0 = 1.058*1e-6; //interface thickness
     const double a1 = 0.8839; //model constant 1
     const double a2 = 0.6267; //model constant 2

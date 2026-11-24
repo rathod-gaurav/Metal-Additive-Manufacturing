@@ -31,25 +31,25 @@ void BinaryAlloy<Nsd,BfOrder>::run(){
     make_grid();
     setup_system_dofs();
     apply_initial_conditions();
-    // for (unsigned int cycle = 0; cycle < max_level_ - min_level_; ++cycle){
-    //     flag_cells_for_refinement();
-    //     triangulation.prepare_coarsening_and_refinement();
-    //     triangulation.execute_coarsening_and_refinement();
-    //     setup_system_dofs();
-    //     apply_initial_conditions(); //exact IC on the finer mesh
-    // }
+    for (unsigned int cycle = 0; cycle < max_level_ - min_level_; ++cycle){
+        flag_cells_for_refinement();
+        triangulation.prepare_coarsening_and_refinement();
+        triangulation.execute_coarsening_and_refinement();
+        setup_system_dofs();
+        apply_initial_conditions(); //exact IC on the finer mesh
+    }
 
     //check total solute upon mesh refinement (should be conserved)
-    const double C0 = compute_total_solute();
-    for (unsigned int i = 1; i <= 3; ++i){
-        refine_mesh();
-        const double C = compute_total_solute();
-        std::cout << "remesh " << i << " | C = " << C << " | rel. change = " << std::abs(C - C0)/C0 << std::endl;
-        std::ofstream pvd_output_test(output_writer_.get_output_dir() + "/total_solute_test.pvd");
-        output_writer_.initiate_pvd(pvd_output_test); //initiated pvd file with headers
-        output_writer_.write_vtu_and_pvd(dof_handler, sol_n, {"uc","phi"}, i, pvd_output_test);
-    }
-    return;
+    // const double C0 = compute_total_solute();
+    // for (unsigned int i = 1; i <= 3; ++i){
+    //     refine_mesh();
+    //     const double C = compute_total_solute();
+    //     std::cout << "remesh " << i << " | C = " << C << " | rel. change = " << std::abs(C - C0)/C0 << std::endl;
+    //     std::ofstream pvd_output_test(output_writer_.get_output_dir() + "/total_solute_test.pvd");
+    //     output_writer_.initiate_pvd(pvd_output_test); //initiated pvd file with headers
+    //     output_writer_.write_vtu_and_pvd(dof_handler, sol_n, {"uc","phi"}, i, pvd_output_test);
+    // }
+    // return;
 
     verify_jacobian(5); //check 5 elements for AD vs FD Jacobian
     solve();

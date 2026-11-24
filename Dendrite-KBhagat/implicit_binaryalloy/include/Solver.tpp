@@ -51,6 +51,9 @@ void BinaryAlloy<Nsd,BfOrder>::solve(){
 
         sol_n = sol_k; //accept the new time level
 
+        refine_mesh();
+        if(timestep % 50 == 0){ refine_mesh(); } //refine mesh every 50 timesteps
+
         if(timestep % 100 == 0){
             output_writer_.write_vtu_and_pvd(dof_handler, sol_n, {"u", "phi"}, timestep, pvd_output);
         }

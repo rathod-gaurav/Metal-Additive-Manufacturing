@@ -12,7 +12,7 @@ void BinaryAlloy<Nsd,BfOrder>::flag_cells_for_refinement() {
 
         double min_abs_phi = 1.0e10; //smallest |phi| on this cell
         for (unsigned int i = 0; i < dofs_per_cell; ++i){
-            if (fe.system_to_component_index(i).first == PHI){
+            if (fe.system_to_component_index(i).first == PHI_){
                 min_abs_phi = std::min(min_abs_phi, std::abs(sol_n(local_dof_indices[i])));
             }
         }

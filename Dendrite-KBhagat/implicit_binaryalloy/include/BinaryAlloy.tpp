@@ -32,7 +32,7 @@ void BinaryAlloy<Nsd,BfOrder>::run(){
     setup_system_dofs();
     apply_initial_conditions();
     for (unsigned int cycle = 0; cycle < max_level_ - min_level_; ++cycle){
-        flag_cells_for_refinement(sol_n);
+        flag_cells_for_refinement();
         triangulation.prepare_coarsening_and_refinement();
         triangulation.execute_coarsening_and_refinement();
         setup_system_dofs();

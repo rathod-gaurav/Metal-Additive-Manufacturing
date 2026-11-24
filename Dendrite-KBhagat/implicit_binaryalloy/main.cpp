@@ -55,8 +55,8 @@ int main(){
     const unsigned int n_elements = 50; //number of elements per side
 
     //NR parameters
-    const unsigned int NT = 10000; //total number of timesteps
-    const double dt = 0.005; //timestep size
+    const unsigned int NT = 100000; //total number of timesteps
+    double dt = 0.0005; //timestep size
     const unsigned int N_NR = 20; //total number of newton iterates per timestep
     const double epsilon_NR = 1e-6; //NR convergence tolerance
 
@@ -87,6 +87,12 @@ int main(){
     const double delta_phi = 1e-3; //threshold for refinement (|phi| < 1 - delta_phi)
     const double delta_coarsen = 1e-4; //threshold for coarsening (|phi| > 1 - delta_coarsen)
 
+    //Adaptive time stepping parameters
+    const double dt_max = 5*dt; //maximum timestep size
+    const double dt_min = 1e-6; //minimum timestep size
+    const double dt_reduction_factor = 0.5; //factor to reduce dt when NR fails to converge
+    const double dt_increase_factor = 1.5; //factor to increase dt when NR converges quickly
+
     //code here - for constitutive model parameters, if any
     const double D_l = 2.4*1e-9; //diffusivity of solute in liquid 
     const double D_s = 1.15*1e-12; //diffusivity of solute in solid
@@ -116,7 +122,8 @@ int main(){
         NT, dt, N_NR, epsilon_NR,
         model, 
         output_writer,
-        max_level, min_level, delta_phi, delta_coarsen
+        max_level, min_level, delta_phi, delta_coarsen,
+        dt_max, dt_min, dt_reduction_factor, dt_increase_factor
     );
 
     problem.run();

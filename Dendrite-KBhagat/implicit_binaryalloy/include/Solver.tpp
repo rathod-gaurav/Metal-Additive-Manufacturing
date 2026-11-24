@@ -29,7 +29,11 @@ void BinaryAlloy<Nsd,BfOrder>::solve(){
 
             if(error < epsilon_NR_){
                 converged = true;
-                std::cout << "convergence achieved for timestep " << timestep << " in " << k << " iterations" << std::endl;
+                std::cout << "convergence achieved for timestep " << timestep << " in " << k << " iterations. Total time:" << t << std::endl;
+                if (k <= 4) {// easy step: grow dt
+                    dt_ = std::min(dt_increase_factor_*dt_, dt_max_);
+                    std::cout << "increasing dt to " << dt_ << std::endl;
+                }
                 break;
             }
 
@@ -46,14 +50,20 @@ void BinaryAlloy<Nsd,BfOrder>::solve(){
         }
 
         if(!converged){
-            std::cout << "WARNING: Newton did not converge in " << N_NR_ << " iterations at timestep " << timestep << std::endl;
+            std::cout << "WARNING: Newton did not converge in " << N_NR_ << " iterations at timestep " << timestep << ". Executing timestep refinement." << std::endl;
+            sol_k = sol_n;
+            dt_ *= dt_reduction_factor_; //halve the timestep
+            if (dt_ < dt_min_){ std::cerr << "dt below dt_min, abort!\n"; break; }
+            std::cout << "reducing dt to " << dt_ << std::endl;
+            timestep--;
+            continue; //retry the same timestep with a smaller dt
         }
 
         sol_n = sol_k; //accept the new time level
 
         if(timestep % 50 == 0){ refine_mesh(); } //refine mesh every 50 timesteps
 
-        if(timestep % 100 == 0){
+        if(timestep % 10 == 0){
             output_writer_.write_vtu_and_pvd(dof_handler, sol_n, {"u", "phi"}, timestep, pvd_output);
         }
     }

@@ -12,10 +12,11 @@ class BinaryAlloy{
             const double x_ll, const double x_ul, const unsigned int n_elements, const unsigned int quadOrder, //mesh
             const unsigned int UC, const unsigned int PHI, const unsigned int N_FIELDS, 
             const double supersaturation, const std::vector<NucleationSeed<Nsd>>& seeds, //initial conditions
-            const unsigned int NT, const double dt, const unsigned int N_NR, const double epsilon_NR, //newton solver
+            const unsigned int NT, double dt, const unsigned int N_NR, const double epsilon_NR, //newton solver
             const ConstitutiveModel& model, 
             OutputWriter<Nsd,BfOrder>& output_writer,
-            const unsigned int max_level, const unsigned int min_level, const double delta_phi, const double delta_coarsen //adaptive mesh refinement
+            const unsigned int max_level, const unsigned int min_level, const double delta_phi, const double delta_coarsen, //adaptive mesh refinement
+            const double dt_max, const double dt_min, const double dt_reduction_factor, const double dt_increase_factor //adaptive time stepping factors
         );
         void run();
     
@@ -29,7 +30,7 @@ class BinaryAlloy{
         const double supersaturation_;
         const std::vector<NucleationSeed<Nsd>> seeds_;
         const unsigned int NT_;
-        const double dt_;
+        double dt_;
         const unsigned int N_NR_;
         const double epsilon_NR_;
         const ConstitutiveModel& model_;
@@ -38,6 +39,10 @@ class BinaryAlloy{
         const unsigned int min_level_;
         const double delta_phi_;
         const double delta_coarsen_;
+        const double dt_max_;
+        const double dt_min_;
+        const double dt_reduction_factor_;
+        const double dt_increase_factor_;
 
         void make_grid();
         void setup_system_dofs();

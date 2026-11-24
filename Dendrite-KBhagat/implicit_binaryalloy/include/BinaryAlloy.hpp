@@ -35,7 +35,8 @@ class BinaryAlloy{
         OutputWriter<Nsd,BfOrder>& output_writer_;
 
         void make_grid();
-        void setup_system();
+        void setup_system_dofs();
+        void apply_initial_conditions();
         void assemble_system(double t);
         void compute_element(
             double t,

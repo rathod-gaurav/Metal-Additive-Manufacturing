@@ -1,15 +1,19 @@
 #pragma once
 
 template<unsigned int Nsd, unsigned int BfOrder>
-void BinaryAlloy<Nsd,BfOrder>::setup_system(){
+void BinaryAlloy<Nsd,BfOrder>::setup_system_dofs(){
     dof_handler.distribute_dofs(fe);
     Nt = dof_handler.n_dofs();
     std::cout << "DoFs per vertex: " << fe.n_dofs_per_vertex() << std::endl;
     std::cout << "DoFs per cell: " << fe.n_dofs_per_cell() << std::endl;
     std::cout << "Total number of degrees of freedom: " << Nt << std::endl;
 
+    constraints.clear();
+    DoFTools::make_hanging_node_constraints(dof_handler, constraints);
+    constraints.close();
+
     DynamicSparsityPattern dsp(Nt);
-    DoFTools::make_sparsity_pattern(dof_handler,dsp); //coupled both u and phi
+    DoFTools::make_sparsity_pattern(dof_handler,dsp,constraints, false); //coupled both u and phi
     sparsity_pattern.copy_from(dsp);
 
     NR_jacobian.reinit(sparsity_pattern);
@@ -17,7 +21,11 @@ void BinaryAlloy<Nsd,BfOrder>::setup_system(){
     sol_k.reinit(Nt);
     sol_n.reinit(Nt);
     NR_update.reinit(Nt);
+}
 
+template<unsigned int Nsd, unsigned int BfOrder>
+void BinaryAlloy<Nsd,BfOrder>::apply_initial_conditions(){
     VectorTools::interpolate(dof_handler, InitialConditions<Nsd>(supersaturation_, seeds_), sol_n);
+    constraints.distribute(sol_n);
     sol_k = sol_n; //guess for Newton's first iteration
 }

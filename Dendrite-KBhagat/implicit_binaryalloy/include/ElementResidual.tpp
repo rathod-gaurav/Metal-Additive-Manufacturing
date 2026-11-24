@@ -1,5 +1,8 @@
 #pragma once
 
+inline double scalar_value(const double x){ return x; }
+template <typename T> inline double scalar_value(const T& x){ return x.val(); }
+
 template<unsigned int Nsd, unsigned int BfOrder>
 template<typename Number>
 void BinaryAlloy<Nsd,BfOrder>::element_residual(
@@ -54,8 +57,9 @@ void BinaryAlloy<Nsd,BfOrder>::element_residual(
         const double coef3 = (y - v_*t)*invlT_;
         const double coef4 = 1.0 - (1.0 - k)*coef3;
         const Number coef5 = uc + coef3;
-        const Number dfdphi = phi - phi*phi*phi - xi_*(1.0 - phi*phi)*(1.0 - phi*phi)*coef5;
-
+        const Number phi_c = (scalar_value(phi) >  1.0) ? Number(1.0) : (scalar_value(phi) < -1.0) ? Number(-1.0) : phi; //clamp phi to [-1,1] to avoid numerical issues in the bulk where phi can overshoot
+        const Number s = 1.0 - phi_c*phi_c;
+        const Number dfdphi = phi - phi*phi*phi - xi_*s*s*coef5;
 
         const double JxW = fe_values.JxW(q);
 

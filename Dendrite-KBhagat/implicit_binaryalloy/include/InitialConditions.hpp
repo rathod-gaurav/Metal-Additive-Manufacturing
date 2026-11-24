@@ -10,7 +10,7 @@ template <unsigned int Nsd>
 std::vector<NucleationSeed<Nsd>> generate_random_seeds(const unsigned int Nseeds, const double x_ll, const double x_ul)
 {
     std::random_device rd;
-    std::mt19937 gen(rd());
+    std::mt19937 gen(1234); // Fixed seed for reproducibility
     std::uniform_real_distribution<double> dist(x_ll, x_ul);
     std::vector<NucleationSeed<Nsd>> seeds(Nseeds);
     for (unsigned int i = 0; i < Nseeds; ++i)

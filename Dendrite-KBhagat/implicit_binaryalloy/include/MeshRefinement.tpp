@@ -33,10 +33,22 @@ template<unsigned int Nsd, unsigned int BfOrder>
 void BinaryAlloy<Nsd,BfOrder>::refine_mesh() {
     flag_cells_for_refinement(); //steps 1 and 2
     
+    //debug - check coarsening
+    auto count = [&](){ 
+        unsigned int c = 0;
+        for (const auto& cell : triangulation.active_cell_iterators()){c += cell->coarsen_flag_set();}
+        return c;     
+    };
+        
+    std::cout << "coarsen flags: " << count();
+
     triangulation.prepare_coarsening_and_refinement(); //3.1
+
+    std::cout << " -> " << count() << std::endl; //debug - end
+
     SolutionTransfer<Nsd, Vector<double>> transfer(dof_handler);
     transfer.prepare_for_coarsening_and_refinement(sol_n); //3.2
-    
+
     triangulation.execute_coarsening_and_refinement(); //3.3
     setup_system_dofs(); //3.4 (NO initial conditions here)
 

@@ -70,6 +70,9 @@ class BinaryAlloy{
         void refine_mesh();
         double compute_total_solute() const;
 
+        //interface properties
+        double max_interface_speed() const;
+
         //--- debugging: AD Jacobian vs finite differences ---
         void verify_jacobian(const unsigned int n_elems_to_check);
 
@@ -95,4 +98,5 @@ class BinaryAlloy{
 #include "VerifyJacobian.tpp"
 #include "Solver.tpp"
 #include "MeshRefinement.tpp"
+#include "InterfaceProperties.tpp"
 

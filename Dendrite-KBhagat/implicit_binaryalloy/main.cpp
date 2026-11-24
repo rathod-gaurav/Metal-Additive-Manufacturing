@@ -82,7 +82,7 @@ int main(){
     // }
 
     //Adaptive Meshing parameters
-    const unsigned int max_level = 4; //maximum refinement level
+    const unsigned int max_level = 5; //maximum refinement level
     const unsigned int min_level = 0; //minimum refinement level
     const double delta_phi = 1e-3; //threshold for refinement (|phi| < 1 - delta_phi)
     const double delta_coarsen = 1e-4; //threshold for coarsening (|phi| > 1 - delta_coarsen)

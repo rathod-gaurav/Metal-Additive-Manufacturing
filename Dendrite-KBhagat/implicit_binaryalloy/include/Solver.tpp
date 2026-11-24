@@ -70,12 +70,29 @@ void BinaryAlloy<Nsd,BfOrder>::solve(){
 
         sol_n = sol_k; //accept the new time level
         std::cout << "convergence achieved for timestep " << timestep << " in " << n_iter << " iterations. Total time:" << t << std::endl;
-        if (n_iter <= 4) {// easy step: grow dt
+        
+
+        //debug - check max phi and its location
+        std::vector<types::global_dof_index> dofs(fe.n_dofs_per_cell());
+        double phi_max = -1e300;  Point<Nsd> x_max;  double h_max = 0;  int lev_max = 0;
+        for (const auto& cell : dof_handler.active_cell_iterators()){
+            cell->get_dof_indices(dofs);
+            for (unsigned int i = 0; i < dofs.size(); ++i){
+                if (fe.system_to_component_index(i).first == PHI_ && sol_n(dofs[i]) > phi_max){
+                    phi_max = sol_n(dofs[i]);
+                    x_max = cell->center();  h_max = cell->diameter()/std::sqrt(2.0);  lev_max = cell->level();
+                }
+            }
+        }
+        std::cout << "max phi = " << phi_max << " at " << x_max << " | dx = " << h_max << " | level = " << lev_max << std::endl;
+        //debug - end        
+        
+        if (n_iter <= 3) {// easy step: grow dt
             dt_ = std::min(dt_increase_factor_*dt_, dt_max_);
             std::cout << "increasing dt to " << dt_ << std::endl;
         }
 
-        if(timestep % 20 == 0){ refine_mesh(); } //refine mesh every 20 timesteps
+        if(timestep % 10 == 0){ refine_mesh(); } //refine mesh every 20 timesteps
 
         if(timestep % 10 == 0){
             output_writer_.write_vtu_and_pvd(dof_handler, sol_n, {"uc", "phi"}, timestep, pvd_output);

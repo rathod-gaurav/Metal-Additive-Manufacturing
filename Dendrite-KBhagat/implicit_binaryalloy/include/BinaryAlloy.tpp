@@ -15,6 +15,7 @@ BinaryAlloy<Nsd,BfOrder>::BinaryAlloy(
     NT_(NT), dt_(dt), N_NR_(N_NR), epsilon_NR_(epsilon_NR),
     model_(model),
     output_writer_(output_writer),
+    triangulation(Triangulation<Nsd>::limit_level_difference_at_vertices),
     fe(FE_Q<Nsd>(BfOrder), N_FIELDS_), //2 for 2 fields per node
     dof_handler(triangulation)
 {

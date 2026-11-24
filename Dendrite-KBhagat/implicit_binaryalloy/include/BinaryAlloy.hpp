@@ -16,7 +16,7 @@ class BinaryAlloy{
             const ConstitutiveModel& model, 
             OutputWriter<Nsd,BfOrder>& output_writer,
             const unsigned int max_level, const unsigned int min_level, const double delta_phi, const double delta_coarsen, //adaptive mesh refinement
-            const double dt_max, const double dt_min, const double dt_reduction_factor, const double dt_increase_factor //adaptive time stepping factors
+            const double dt_max, const double dt_min, const double dt_reduction_factor, const double dt_increase_factor, const unsigned int residual_divergence_factor //adaptive time stepping factors
         );
         void run();
     
@@ -43,6 +43,7 @@ class BinaryAlloy{
         const double dt_min_;
         const double dt_reduction_factor_;
         const double dt_increase_factor_;
+        const unsigned int residual_divergence_factor_;
 
         void make_grid();
         void setup_system_dofs();

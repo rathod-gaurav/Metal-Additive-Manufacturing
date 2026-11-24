@@ -20,20 +20,29 @@ void BinaryAlloy<Nsd,BfOrder>::solve(){
 
         //NR loops
         bool converged = false;
+        unsigned int n_iter = 0;
+        double error0 = 0.0; //initial residual for divergence check
+        double allowed_divergence = 0.0; //threshold for divergence
+
         for(unsigned int k = 0 ; k < N_NR_ ; k++){
 
             assemble_system(t); //uses sol_k (and sol_n) -> NR_jacobian = dR/dd, NR_residual = R
 
             double error = NR_residual.l2_norm();
             std::cout << "timestep: " << timestep << " | iteration: " << k << " | residual: " << error << std::endl;
+            if(k == 0){ //store initial residual for divergence check
+                error0 = error; 
+                allowed_divergence = std::pow(error0, residual_divergence_factor_); 
+            } 
 
-            if(error < epsilon_NR_){
+            if(!std::isfinite(error) || error > allowed_divergence){ //if residual diverges
+                std::cerr << "ERROR: Non-finite residual encountered at timestep " << timestep << ", iteration " << k << std::endl;
+                break;
+            }
+
+            if(error < epsilon_NR_){ //if residual is converged!
                 converged = true;
-                std::cout << "convergence achieved for timestep " << timestep << " in " << k << " iterations. Total time:" << t << std::endl;
-                if (k <= 4) {// easy step: grow dt
-                    dt_ = std::min(dt_increase_factor_*dt_, dt_max_);
-                    std::cout << "increasing dt to " << dt_ << std::endl;
-                }
+                n_iter = k;
                 break;
             }
 
@@ -53,18 +62,23 @@ void BinaryAlloy<Nsd,BfOrder>::solve(){
             std::cout << "WARNING: Newton did not converge in " << N_NR_ << " iterations at timestep " << timestep << ". Executing timestep refinement." << std::endl;
             sol_k = sol_n;
             dt_ *= dt_reduction_factor_; //halve the timestep
-            if (dt_ < dt_min_){ std::cerr << "dt below dt_min, abort!\n"; break; }
+            if (dt_ < dt_min_){ std::cerr << "dt below dt_min, Abort!\n"; break; }
             std::cout << "reducing dt to " << dt_ << std::endl;
             timestep--;
             continue; //retry the same timestep with a smaller dt
         }
 
         sol_n = sol_k; //accept the new time level
+        std::cout << "convergence achieved for timestep " << timestep << " in " << n_iter << " iterations. Total time:" << t << std::endl;
+        if (n_iter <= 4) {// easy step: grow dt
+            dt_ = std::min(dt_increase_factor_*dt_, dt_max_);
+            std::cout << "increasing dt to " << dt_ << std::endl;
+        }
 
-        if(timestep % 50 == 0){ refine_mesh(); } //refine mesh every 50 timesteps
+        if(timestep % 20 == 0){ refine_mesh(); } //refine mesh every 20 timesteps
 
         if(timestep % 10 == 0){
-            output_writer_.write_vtu_and_pvd(dof_handler, sol_n, {"u", "phi"}, timestep, pvd_output);
+            output_writer_.write_vtu_and_pvd(dof_handler, sol_n, {"uc", "phi"}, timestep, pvd_output);
         }
     }
 

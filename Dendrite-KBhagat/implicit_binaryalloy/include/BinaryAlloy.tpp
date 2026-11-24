@@ -9,7 +9,7 @@ BinaryAlloy<Nsd,BfOrder>::BinaryAlloy(
     const ConstitutiveModel& model, 
     OutputWriter<Nsd,BfOrder>& output_writer,
     const unsigned int max_level, const unsigned int min_level, const double delta_phi, const double delta_coarsen, //adaptive mesh refinement
-    const double dt_max, const double dt_min, const double dt_reduction_factor, const double dt_increase_factor //adaptive time stepping factors
+    const double dt_max, const double dt_min, const double dt_reduction_factor, const double dt_increase_factor, const unsigned int residual_divergence_factor //adaptive time stepping factors
 ) :
     x_ll_(x_ll), x_ul_(x_ul), n_elements_(n_elements), quadOrder_(quadOrder),
     UC_(UC), PHI_(PHI), N_FIELDS_(N_FIELDS), 
@@ -18,7 +18,7 @@ BinaryAlloy<Nsd,BfOrder>::BinaryAlloy(
     model_(model),
     output_writer_(output_writer),
     max_level_(max_level), min_level_(min_level), delta_phi_(delta_phi), delta_coarsen_(delta_coarsen),
-    dt_max_(dt_max), dt_min_(dt_min), dt_reduction_factor_(dt_reduction_factor), dt_increase_factor_(dt_increase_factor),
+    dt_max_(dt_max), dt_min_(dt_min), dt_reduction_factor_(dt_reduction_factor), dt_increase_factor_(dt_increase_factor), residual_divergence_factor_(residual_divergence_factor),
     triangulation(Triangulation<Nsd>::limit_level_difference_at_vertices),
     fe(FE_Q<Nsd>(BfOrder), N_FIELDS_), //2 for 2 fields per node
     dof_handler(triangulation)

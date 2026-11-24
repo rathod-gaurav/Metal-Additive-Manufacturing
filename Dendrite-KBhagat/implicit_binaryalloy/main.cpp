@@ -91,7 +91,8 @@ int main(){
     const double dt_max = 5*dt; //maximum timestep size
     const double dt_min = 1e-6; //minimum timestep size
     const double dt_reduction_factor = 0.5; //factor to reduce dt when NR fails to converge
-    const double dt_increase_factor = 1.5; //factor to increase dt when NR converges quickly
+    const double dt_increase_factor = 2.0; //factor to increase dt when NR converges quickly
+    const unsigned int residual_divergence_factor = 2; //factor to check for divergence of residual
 
     //code here - for constitutive model parameters, if any
     const double D_l = 2.4*1e-9; //diffusivity of solute in liquid 
@@ -123,7 +124,7 @@ int main(){
         model, 
         output_writer,
         max_level, min_level, delta_phi, delta_coarsen,
-        dt_max, dt_min, dt_reduction_factor, dt_increase_factor
+        dt_max, dt_min, dt_reduction_factor, dt_increase_factor, residual_divergence_factor
     );
 
     problem.run();

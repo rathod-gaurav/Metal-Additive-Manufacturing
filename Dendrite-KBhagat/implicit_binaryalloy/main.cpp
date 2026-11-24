@@ -52,7 +52,7 @@ int main(){
     //Mesh
     const double x_ll = -300.0;
     const double x_ul = 300.0;
-    const unsigned int n_elements = 500; //number of elements per side
+    const unsigned int n_elements = 125; //number of elements per side
 
     //NR parameters
     const unsigned int NT = 100000; //total number of timesteps
@@ -67,7 +67,7 @@ int main(){
 
     //Initial conditions - randomly distributed nucleation seeds in the domain
     const double supersaturation = -1.0;
-    const unsigned int Nseeds = n_elements; //number of nucleation seeds
+    const unsigned int Nseeds = 5; //number of nucleation seeds
     std::vector<NucleationSeed<Nsd>> seeds(Nseeds);
     //for multiple equiaxed case
     seeds = generate_random_seeds<Nsd>(Nseeds, x_ll, x_ul);

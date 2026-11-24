@@ -37,12 +37,10 @@ void BinaryAlloy<Nsd,BfOrder>::refine_mesh() {
     SolutionTransfer<Nsd, Vector<double>> transfer(dof_handler);
     transfer.prepare_for_coarsening_and_refinement(sol_n); //3.2
     
-    const Vector<double> sol_old = sol_n; //keep the old data: sol_n is resized below
-    
     triangulation.execute_coarsening_and_refinement(); //3.3
     setup_system_dofs(); //3.4 (NO initial conditions here)
 
-    transfer.interpolate(sol_old, sol_n); //3.5 (deal.II 9.5 signature)
+    transfer.interpolate(sol_n); //3.5 (deal.II 9.5 signature)
     constraints.distribute(sol_n); //3.6
     sol_k = sol_n; //3.7
     

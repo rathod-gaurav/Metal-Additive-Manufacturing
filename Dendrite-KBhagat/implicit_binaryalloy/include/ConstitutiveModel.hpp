@@ -21,6 +21,7 @@ class ConstitutiveModel{
         double lambda0() const {return lambda0_;}
         double pulling_speed_non_dim() const {return (Vp_*tau0())/lambda0_;}
         double inv_thermal_length_non_dim() const {return (k_*G_*lambda0_)/(std::abs(m_l_)*(1-k_)*c0_);}
+        double c0() const {return c0_;}
 
         //four-fold anisotropy a_s(q) = (1-3eps4) + 4 eps4 (qx^4+qy^4)/|q|^4, q = grad phi
         //returns a_s and d a_s / d q

@@ -48,3 +48,27 @@ void BinaryAlloy<Nsd,BfOrder>::refine_mesh() {
     
     std::cout << "remesh: cells = " << triangulation.n_active_cells() << " | DoFs = " << dof_handler.n_dofs() << std::endl;
 }
+
+//check total solute upon mesh refinement (should be conserved)
+template <unsigned int Nsd, unsigned int BfOrder>
+double BinaryAlloy<Nsd,BfOrder>::compute_total_solute() const {
+    const QGauss<Nsd> quad(quadOrder_);
+    FEValues<Nsd> fe_values(fe, quad, update_values | update_JxW_values);
+    const unsigned int n_q = quad.size();
+    std::vector<double> uc(n_q), phi(n_q);
+
+    const double k   = model_.partition_coefficient();
+    const double cl0 = model_.c0()/k;                          // reference liquid composition
+    double C = 0.0;
+
+    for (const auto& cell : dof_handler.active_cell_iterators()){
+        fe_values.reinit(cell);
+        fe_values[field_ext[UC_]].get_function_values(sol_n, uc);
+        fe_values[field_ext[PHI_]].get_function_values(sol_n, phi);
+        for (unsigned int q = 0; q < n_q; ++q){
+            const double c = 0.5*cl0*(1.0 - phi[q] + k*(1.0 + phi[q]))*(1.0 + (1.0 - k)*uc[q]);
+            C += c*fe_values.JxW(q);
+        }
+    }
+    return C;
+}

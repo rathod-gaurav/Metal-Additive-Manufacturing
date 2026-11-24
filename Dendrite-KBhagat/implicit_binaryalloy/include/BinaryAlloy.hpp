@@ -62,6 +62,7 @@ class BinaryAlloy{
         //new functions for adaptive mesh refinement
         void flag_cells_for_refinement();
         void refine_mesh();
+        double compute_total_solute() const;
 
         //--- debugging: AD Jacobian vs finite differences ---
         void verify_jacobian(const unsigned int n_elems_to_check);

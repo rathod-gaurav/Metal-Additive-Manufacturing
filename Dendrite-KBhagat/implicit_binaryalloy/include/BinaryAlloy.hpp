@@ -14,7 +14,8 @@ class BinaryAlloy{
             const double supersaturation, const std::vector<NucleationSeed<Nsd>>& seeds, //initial conditions
             const unsigned int NT, const double dt, const unsigned int N_NR, const double epsilon_NR, //newton solver
             const ConstitutiveModel& model, 
-            OutputWriter<Nsd,BfOrder>& output_writer
+            OutputWriter<Nsd,BfOrder>& output_writer,
+            const unsigned int max_level, const unsigned int min_level, const double delta_phi, const double delta_coarsen //adaptive mesh refinement
         );
         void run();
     
@@ -33,6 +34,10 @@ class BinaryAlloy{
         const double epsilon_NR_;
         const ConstitutiveModel& model_;
         OutputWriter<Nsd,BfOrder>& output_writer_;
+        const unsigned int max_level_;
+        const unsigned int min_level_;
+        const double delta_phi_;
+        const double delta_coarsen_;
 
         void make_grid();
         void setup_system_dofs();
@@ -53,6 +58,10 @@ class BinaryAlloy{
             double t, const FEValues<Nsd>& fe_values, const QPFields<Nsd,Number>& fields, std::vector<Number>& Rlocal
         ) const;
         void solve();
+
+        //new functions for adaptive mesh refinement
+        void flag_cells_for_refinement();
+        void refine_mesh();
 
         //--- debugging: AD Jacobian vs finite differences ---
         void verify_jacobian(const unsigned int n_elems_to_check);
@@ -78,4 +87,5 @@ class BinaryAlloy{
 #include "SetupSystem.tpp"
 #include "VerifyJacobian.tpp"
 #include "Solver.tpp"
+#include "MeshRefinement.tpp"
 

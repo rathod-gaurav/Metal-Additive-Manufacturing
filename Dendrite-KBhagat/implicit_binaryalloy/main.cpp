@@ -80,7 +80,12 @@ int main(){
     //     seeds[i].center = Point<Nsd>(x_pos, x_ll + 5.0); //seed at the bottom of the domain
     //     seeds[i].radius = 5.0; //seed radius
     // }
-    
+
+    //Adaptive Meshing parameters
+    const unsigned int max_level = 3; //maximum refinement level
+    const unsigned int min_level = 0; //minimum refinement level
+    const double delta_phi = 1e-3; //threshold for refinement (|phi| < 1 - delta_phi)
+    const double delta_coarsen = 1e-4; //threshold for coarsening (|phi| > 1 - delta_coarsen)
 
     //code here - for constitutive model parameters, if any
     const double D_l = 2.4*1e-9; //diffusivity of solute in liquid 
@@ -110,7 +115,8 @@ int main(){
         UC, PHI, N_FIELDS, supersaturation, seeds,
         NT, dt, N_NR, epsilon_NR,
         model, 
-        output_writer
+        output_writer,
+        max_level, min_level, delta_phi, delta_coarsen
     );
 
     problem.run();

@@ -40,6 +40,8 @@ void BinaryAlloy<Nsd,BfOrder>::solve(){
             directsolver.initialize(NR_jacobian);
             directsolver.vmult(NR_update, NR_residual);
 
+            constraints.distribute(NR_update); //distributes the update to the constrained dofs
+
             sol_k += NR_update;
         }
 

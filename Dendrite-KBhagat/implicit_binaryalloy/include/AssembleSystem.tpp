@@ -25,11 +25,12 @@ void BinaryAlloy<Nsd,BfOrder>::assemble_system(double t){
         elem->get_dof_indices(local_dof_indices);
         compute_element(t, elem, fe_values, Jlocal, Rlocal, local_dof_indices);
 
-        for(const unsigned int i : fe_values.dof_indices()){
-            NR_residual(local_dof_indices[i]) += Rlocal(i);
-            for(const unsigned int j : fe_values.dof_indices()){
-                NR_jacobian.add(local_dof_indices[i], local_dof_indices[j], Jlocal(i,j));
-            }
-        }
+        // for(const unsigned int i : fe_values.dof_indices()){
+        //     NR_residual(local_dof_indices[i]) += Rlocal(i);
+        //     for(const unsigned int j : fe_values.dof_indices()){
+        //         NR_jacobian.add(local_dof_indices[i], local_dof_indices[j], Jlocal(i,j));
+        //     }
+        // }
+        constraints.distribute_local_to_global(Jlocal, Rlocal, local_dof_indices, NR_jacobian, NR_residual);
     }
 }

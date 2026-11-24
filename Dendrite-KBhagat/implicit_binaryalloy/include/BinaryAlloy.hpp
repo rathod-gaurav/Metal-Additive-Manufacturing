@@ -62,6 +62,8 @@ class BinaryAlloy{
         unsigned int Nt;
         std::vector<FEValuesExtractors::Scalar> field_ext; //field_ext[f] picks fielf f
 
+        AffineConstraints<double> constraints;
+
         SparsityPattern sparsity_pattern;
         SparseMatrix<double> NR_jacobian;
         Vector<double> sol_k, sol_n; //solution at current iterate, solution at previous timestep

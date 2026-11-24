@@ -32,6 +32,12 @@
 #include <filesystem>
 #include <cmath>
 
+//Adaptive meshing
+#include <deal.II/lac/affine_constraints.h>
+#include <deal.II/grid/grid_refinement.h>
+#include <deal.II/numerics/error_estimator.h>
+#include <deal.II/numerics/solution_transfer.h>
+
 using namespace dealii;
 #include "InitialConditions.hpp"
 #include "BinaryAlloy.hpp"
@@ -64,16 +70,16 @@ int main(){
     const unsigned int Nseeds = n_elements; //number of nucleation seeds
     std::vector<NucleationSeed<Nsd>> seeds(Nseeds);
     //for multiple equiaxed case
-    // seeds = generate_random_seeds<Nsd>(Nseeds, x_ll, x_ul);
+    seeds = generate_random_seeds<Nsd>(Nseeds, x_ll, x_ul);
     //for single columnar case
     // seeds[0].center = Point<Nsd>(0.0, x_ll+10.0); //seed at the bottom of the domain
     // seeds[0].radius = 5.0; //seed radius
     //for multiple columnar case
-    for(unsigned int i = 0 ; i < Nseeds ; i++){
-        double x_pos = i*((x_ul - x_ll)/(Nseeds-1)) + x_ll; //evenly spaced seeds along the bottom of the domain
-        seeds[i].center = Point<Nsd>(x_pos, x_ll + 5.0); //seed at the bottom of the domain
-        seeds[i].radius = 5.0; //seed radius
-    }
+    // for(unsigned int i = 0 ; i < Nseeds ; i++){
+    //     double x_pos = i*((x_ul - x_ll)/(Nseeds-1)) + x_ll; //evenly spaced seeds along the bottom of the domain
+    //     seeds[i].center = Point<Nsd>(x_pos, x_ll + 5.0); //seed at the bottom of the domain
+    //     seeds[i].radius = 5.0; //seed radius
+    // }
     
 
     //code here - for constitutive model parameters, if any

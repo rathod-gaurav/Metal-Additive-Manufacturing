@@ -40,10 +40,10 @@ void BinaryAlloy<Nsd,BfOrder>::run(){
     }
 
     //check total solute upon mesh refinement (should be conserved)
-    const double C0 = compute_total_solute(sol_n);
+    const double C0 = compute_total_solute();
     for (unsigned int i = 1; i <= 3; ++i){
         refine_mesh();
-        const double C = compute_total_solute(sol_n);
+        const double C = compute_total_solute();
         std::cout << "remesh " << i << " | C = " << C << " | rel. change = " << std::abs(C - C0)/C0 << std::endl;
         std::ofstream pvd_output_test(output_writer_.get_output_dir() + "/total_solute_test.pvd");
         output_writer_.initiate_pvd(pvd_output_test); //initiated pvd file with headers
